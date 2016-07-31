@@ -68,7 +68,7 @@ class Request implements RequestInterface
      * @param array $params
      * @return string
      */
-    public function createRequestBody(array $params)
+    protected function createRequestBody(array $params)
     {
         return array_merge(
             [
