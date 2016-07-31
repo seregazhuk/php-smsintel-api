@@ -2,7 +2,6 @@
 
 namespace seregazhuk\SmsIntel;
 
-use seregazhuk\SmsIntel\XMLFormatter;
 use seregazhuk\SmsIntel\Contracts\HttpInterface;
 use seregazhuk\SmsIntel\Contracts\RequestInterface;
 use seregazhuk\SmsIntel\Exceptions\BadEndpointException;
@@ -78,6 +77,6 @@ class Request implements RequestInterface
             ],
             $params);
 
-        return XMLFormatter::convertParamsToXml($params);
+        return (new XMLFormatter($params))->convertToXml();
     }
 }

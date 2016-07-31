@@ -2,43 +2,97 @@
 
 namespace seregazhuk\SmsIntel;
 
-use DOMDocument;
 use DOMElement;
+use DOMDocument;
 
 class XMLFormatter
 {
+    /**
+     * @var array
+     */
+    protected $params;
 
-    public static function convertParamsToXml(array $params)
+    /**
+     * @var DOMDocument
+     */
+    protected $dom;
+
+    /**
+     * @var DOMElement
+     */
+    protected $dataNode;
+
+    public function __construct(array $params)
     {
-        $dom = new \DOMDocument();
-        $dataNode = $dom->createElement('data');
-        $dom->appendChild($dataNode);
-
-        foreach ($params as $key => $value) {
-            if ($key == 'to') {
-                self::appendPhonesNodes($dom, $dataNode, $value);
-            } else {
-                $node = $dom->createElement($key, $value);
-                $dataNode->appendChild($node);
-            }
-
-        }
-
-        return trim($dom->saveXml($dom, LIBXML_NOEMPTYTAG));
+        $this->params = $params;
+    }
+    /**
+     * @return string
+     */
+    public function convertToXml()
+    {
+       return $this->initDom()
+           ->createParamsNodes()
+           ->getXml();
     }
 
     /**
-     * @param DOMDocument $dom
-     * @param DOMElement $dataNode
+     * @return string
+     */
+    protected function getXml()
+    {
+        return trim($this->dom->saveXml($this->dom, LIBXML_NOEMPTYTAG));
+    }
+
+    /**
+     * @return $this
+     */
+    protected function initDom()
+    {
+        $this->dom = new \DOMDocument();
+        $this->dataNode = $this->dom->createElement('data');
+        $this->dom->appendChild($this->dataNode);
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    protected function createParamsNodes()
+    {
+        foreach ($this->params as $key => $value) {
+            $this->createParamNode($key, $value);
+        }
+
+        return $this;
+    }
+
+    /**
      * @param array $phones
      */
-    protected static function appendPhonesNodes(DOMDocument $dom, DOMElement $dataNode, array $phones)
+    protected function appendPhonesNodes(array $phones)
     {
         foreach ($phones as $phone) {
-            $phoneNode = $dom->createElement('to');
+            $phoneNode = $this->dom->createElement('to');
             $phoneNode->setAttribute('number', $phone);
 
-            $dataNode->appendChild($phoneNode);
+            $this->dataNode->appendChild($phoneNode);
         }
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     */
+    protected function createParamNode($key, $value)
+    {
+        if ($key == 'to') {
+            $this->appendPhonesNodes($value);
+            return;
+        }
+
+        $node = $this->dom->createElement($key, $value);
+        $this->dataNode->appendChild($node);
     }
 }
