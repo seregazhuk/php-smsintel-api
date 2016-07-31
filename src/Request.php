@@ -77,6 +77,6 @@ class Request implements RequestInterface
             ],
             $params);
 
-        return (new XMLFormatter($params))->convertToXml();
+        return (new XMLFormatter($params))->toXml();
     }
 }

@@ -29,7 +29,7 @@ class XMLFormatter
     /**
      * @return string
      */
-    public function convertToXml()
+    public function toXml()
     {
        return $this->initDom()
            ->createParamsNodes()
