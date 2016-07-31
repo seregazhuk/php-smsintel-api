@@ -37,8 +37,8 @@ class GuzzleHttpAdapter implements HttpInterface{
 	}
 
 	/**
-	 * @param $uri
-	 * @param $body
+	 * @param string $uri
+	 * @param array $body
 	 * @return array
 	 */
 	public function post($uri, $body)
@@ -62,11 +62,14 @@ class GuzzleHttpAdapter implements HttpInterface{
 	}
 
 	/**
+     * Parses XML from response and returns it as an array
+     *
 	 * @param Response $response
 	 * @return array
 	 */
 	protected function parseResponse(Response $response)
 	{
-		return json_decode($response->getBody(), true);
+		$xml = simplexml_load_string($response->getBody(true));
+        return (array)$xml->children();
 	}
 }

@@ -2,6 +2,7 @@
 
 namespace seregazhuk\SmsIntel;
 
+use seregazhuk\SmsIntel\XMLFormatter;
 use seregazhuk\SmsIntel\Contracts\HttpInterface;
 use seregazhuk\SmsIntel\Contracts\RequestInterface;
 use seregazhuk\SmsIntel\Exceptions\BadEndpointException;
@@ -9,10 +10,10 @@ use seregazhuk\SmsIntel\Exceptions\BadEndpointException;
 class Request implements RequestInterface
 {
 
-    const BASE_URL = 'https://lcab.smsintel.ru/lcabApi/';
+    const BASE_URL = 'https://lcab.smsintel.ru/API/XML/';
 
     protected $endPoints = [
-        'send' => 'sendSms',
+        'send' => 'send',
     ];
 
     /**
@@ -70,11 +71,13 @@ class Request implements RequestInterface
      */
     protected function createRequestBody(array $params)
     {
-        return array_merge(
+        $params = array_merge(
             [
                 'login'    => $this->login,
                 'password' => $this->password,
-            ], $params
-        );
+            ],
+            $params);
+
+        return XMLFormatter::convertParamsToXml($params);
     }
 }

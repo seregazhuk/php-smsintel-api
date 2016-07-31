@@ -1,29 +1,57 @@
 <?php
 
-
 namespace seregazhuk\SmsIntel;
 
 use seregazhuk\SmsIntel\Adapters\GuzzleHttpAdapter;
 
-class Sender {
+class Sender
+{
 
-	/**
-	 * @var Request
-	 */
-	protected $request;
+    /**
+     * @var Request
+     */
+    protected $request;
 
-	public static function create($login, $password)
-	{
-		return new static($login, $password);
-	}
+    /**
+     * @param $login
+     * @param $password
+     * @return static
+     */
+    public static function create($login, $password)
+    {
+        return new static($login, $password);
+    }
 
-	private function __construct($login, $password)
-	{
-		$this->request = new Request(new GuzzleHttpAdapter(), $login, $password);
-	}
+    /**
+     * @param string $login
+     * @param string $password
+     */
+    private function __construct($login, $password)
+    {
+        $this->request = new Request(
+            new GuzzleHttpAdapter(), $login, $password
+        );
+    }
 
-	public function send($to, $from, $message, $params = [])
-	{
+    /**
+     * @param string|array $to
+     * @param string $from
+     * @param string $message
+     * @param array $params
+     * @return array|null
+     */
+    public function send($to, $from, $message, $params = [])
+    {
+        $to = is_array($to) ? $to : [$to];
 
-	}
+        $requestParams = array_merge(
+            [
+                'to'     => $to,
+                'text'   => $message,
+                'source' => $from,
+            ], $params
+        );
+
+        return $this->request->exec('send', $requestParams);
+    }
 }
