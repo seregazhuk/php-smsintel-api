@@ -1,5 +1,5 @@
 {
-    "name": "seregazhuk/sms-intel",
+    "name": "seregazhuk/smsintel-api",
     "description": "PHP library to send sms via SmsIntel service",
 	"keywords": [
 		"php",
