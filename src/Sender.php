@@ -95,4 +95,21 @@ class Sender
             ]
         );
     }
+
+    /**
+     * @param string $dateFrom
+     * @param string $dateTo
+     * @param null|string $source
+     * @return array|null
+     */
+    public function getReport($dateFrom, $dateTo, $source = null)
+    {
+        return $this->request->exec(
+            'report', [
+                'start'  => $dateFrom,
+                'stop'   => $dateTo,
+                'source' => $source,
+            ]
+        );
+    }
 }
