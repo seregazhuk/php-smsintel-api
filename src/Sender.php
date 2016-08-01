@@ -77,4 +77,9 @@ class Sender
     {
         return $this->request->exec('cancel', ['smsid' => $smsId]);
     }
+
+    public function checkCoupon($coupon, $markAsUsed = 1, $phone = null)
+    {
+        return $this->request->exec('checkcode', ['smsid' => $smsId]);
+    }
 }

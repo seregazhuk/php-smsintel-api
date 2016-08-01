@@ -12,11 +12,6 @@ class Request implements RequestInterface
 
     const BASE_URL = 'https://lcab.smsintel.ru/API/XML/';
 
-    protected $endPoints = [
-        'send' => 'send',
-        'cancel' => 'cancel'
-    ];
-
     /**
      * @var HttpInterface
      */
@@ -61,11 +56,7 @@ class Request implements RequestInterface
      */
     protected function makeEndPoint($action)
     {
-        if (!isset($this->endPoints[$action])) {
-            throw new BadEndpointException("Action $action doesn't exist");
-        }
-
-        return self::BASE_URL . $this->endPoints[$action] . '.php';
+        return self::BASE_URL . $action . '.php';
     }
 
     /**
