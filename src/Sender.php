@@ -78,8 +78,21 @@ class Sender
         return $this->request->exec('cancel', ['smsid' => $smsId]);
     }
 
-    public function checkCoupon($coupon, $markAsUsed = 1, $phone = null)
+    /**
+     * @param string $coupon
+     * @param bool $markAsUsed
+     * @param null|string $phone
+     * @return array|null
+     */
+    public function checkCoupon($coupon, $markAsUsed = true, $phone = null)
     {
-        return $this->request->exec('checkcode', ['smsid' => $smsId]);
+        return $this->request->exec(
+            'checkcode',
+            [
+                'code'       => $coupon,
+                'markAsUsed' => (int)$markAsUsed,
+                'phone'      => $phone,
+            ]
+        );
     }
 }
