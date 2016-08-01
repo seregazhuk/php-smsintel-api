@@ -4,6 +4,7 @@ namespace seregazhuk\SmsIntel;
 
 use seregazhuk\SmsIntel\Contracts\HttpInterface;
 use seregazhuk\SmsIntel\Contracts\RequestInterface;
+use seregazhuk\SmsIntel\Exceptions\AuthException;
 use seregazhuk\SmsIntel\Exceptions\BadEndpointException;
 
 class Request implements RequestInterface
@@ -19,14 +20,16 @@ class Request implements RequestInterface
      * @var HttpInterface
      */
     protected $client;
+
     /**
-     * @var
+     * @var string
      */
-    private $login;
+    protected $login;
+
     /**
-     * @var
+     * @var string
      */
-    private $password;
+    protected $password;
 
     public function __construct(HttpInterface $http, $login = '', $password = '')
     {
