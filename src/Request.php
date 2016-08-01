@@ -4,7 +4,6 @@ namespace seregazhuk\SmsIntel;
 
 use seregazhuk\SmsIntel\Contracts\HttpInterface;
 use seregazhuk\SmsIntel\Contracts\RequestInterface;
-use seregazhuk\SmsIntel\Exceptions\BadEndpointException;
 
 class Request implements RequestInterface
 {
@@ -50,7 +49,6 @@ class Request implements RequestInterface
     /**
      * @param string $action
      * @return string
-     * @throws BadEndpointException
      */
     protected function makeEndPoint($action)
     {
