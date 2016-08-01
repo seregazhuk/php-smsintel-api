@@ -8,7 +8,6 @@ use seregazhuk\SmsIntel\Exceptions\BadEndpointException;
 
 class Request implements RequestInterface
 {
-
     const BASE_URL = 'https://lcab.smsintel.ru/API/XML/';
 
     /**
