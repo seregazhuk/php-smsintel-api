@@ -117,9 +117,25 @@ class Sender
      * @param string $smsId
      * @return array|null
      */
-    public function getSmsReport($smsId)
+    public function getReportBySms($smsId)
     {
         return $this->request->exec('report', ['smsid' => $smsId]);
+    }
+
+    /**
+     * @param string $dateFrom
+     * @param string $dateTo
+     * @param null|string $number
+     * @return array|null
+     */
+    public function getReportByNumber($dateFrom, $dateTo, $number = null)
+    {
+        return $this->request->exec('reportNumber',
+            [
+                'start'  => $dateFrom,
+                'stop'   => $dateTo,
+                'number' => $number,
+            ]);
     }
 
     /**
