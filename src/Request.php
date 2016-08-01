@@ -4,7 +4,6 @@ namespace seregazhuk\SmsIntel;
 
 use seregazhuk\SmsIntel\Contracts\HttpInterface;
 use seregazhuk\SmsIntel\Contracts\RequestInterface;
-use seregazhuk\SmsIntel\Exceptions\AuthException;
 use seregazhuk\SmsIntel\Exceptions\BadEndpointException;
 
 class Request implements RequestInterface

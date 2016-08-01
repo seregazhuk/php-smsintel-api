@@ -42,18 +42,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $request->exec('send', []);
     }
 
-    /**
-     * @test
-     * @expectedException \seregazhuk\SmsIntel\Exceptions\BadEndpointException
-     */
-    public function it_throws_exception_when_requesting_bad_action()
-    {
-        $httpClient = Mockery::mock(HttpInterface::class);
-
-        $request = new Request($httpClient, 'test', 'test');
-        $request->exec('unknown', []);
-    }
-
     protected function createParamsXml($params)
     {
         return (new XMLFormatter($params))->toXml();
