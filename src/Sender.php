@@ -113,6 +113,18 @@ class Sender
         );
     }
 
+    /**
+     * @param string $smsId
+     * @return array|null
+     */
+    public function getSmsReport($smsId)
+    {
+        return $this->request->exec('report', ['smsid' => $smsId]);
+    }
+
+    /**
+     * @return array|null
+     */
     public function getBalance()
     {
         return $this->request->exec('balance');
