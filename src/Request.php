@@ -14,6 +14,7 @@ class Request implements RequestInterface
 
     protected $endPoints = [
         'send' => 'send',
+        'cancel' => 'cancel'
     ];
 
     /**

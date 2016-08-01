@@ -68,4 +68,13 @@ class Sender
 
         return $this->request->exec('send', $requestParams);
     }
+
+    /**
+     * @param string $smsId
+     * @return array|null
+     */
+    public function cancel($smsId)
+    {
+        return $this->request->exec('cancel', ['smsid' => $smsId]);
+    }
 }
