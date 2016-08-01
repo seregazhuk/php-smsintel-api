@@ -28,6 +28,6 @@ use seregazhuk\SmsIntel\Factories\SmsIntel;
 $sender = SmsIntel::create('login', 'password');
 
 // send sms
-$result = $sender->send('phoneNumber', 'Your message text', 'From');
+$result = $sender->send('phoneNumber', 'From', 'Your message text');
 
 ```
