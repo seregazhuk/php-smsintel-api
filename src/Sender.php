@@ -2,8 +2,8 @@
 
 namespace seregazhuk\SmsIntel;
 
-use seregazhuk\SmsIntel\Exceptions\AuthException;
 use seregazhuk\SmsIntel\Adapters\GuzzleHttpAdapter;
+use seregazhuk\SmsIntel\Contracts\RequestInterface;
 
 class Sender
 {
@@ -13,38 +13,11 @@ class Sender
     protected $request;
 
     /**
-     * @param $login
-     * @param $password
-     * @return static
+     * @param RequestInterface $request
      */
-    public static function create($login, $password)
+    public function __construct(RequestInterface $request)
     {
-        self::checkCredentials($login, $password);
-
-        return new static($login, $password);
-    }
-
-    /**
-     * @param string $login
-     * @param string $password
-     * @throws AuthException
-     */
-    protected static function checkCredentials($login, $password)
-    {
-        if(empty($login) || empty($password)) {
-            throw new AuthException('You must provide login and password to send messages!');
-        }
-    }
-
-    /**
-     * @param string $login
-     * @param string $password
-     */
-    private function __construct($login, $password)
-    {
-        $this->request = new Request(
-            new GuzzleHttpAdapter(), $login, $password
-        );
+        $this->request = $request;
     }
 
     /**
