@@ -112,4 +112,9 @@ class Sender
             ]
         );
     }
+
+    public function getBalance()
+    {
+        return $this->request->exec('balance');
+    }
 }
