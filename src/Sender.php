@@ -8,7 +8,7 @@ use seregazhuk\SmsIntel\Contracts\RequestInterface;
 class Sender
 {
     /**
-     * @var Request
+     * @var RequestInterface
      */
     protected $request;
 
