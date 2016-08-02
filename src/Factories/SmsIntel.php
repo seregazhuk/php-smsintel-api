@@ -2,6 +2,7 @@
 
 namespace seregazhuk\SmsIntel\Factories;
 
+use seregazhuk\SmsIntel\Requests\RequestsContainer;
 use seregazhuk\SmsIntel\Sender;
 use seregazhuk\SmsIntel\Request;
 use seregazhuk\SmsIntel\Exceptions\AuthException;
@@ -18,9 +19,10 @@ class SmsIntel
     {
         self::checkCredentials($login, $password);
 
-        return new Sender(new Request(
+        $requestsContainer = new RequestsContainer(
             new GuzzleHttpAdapter(), $login, $password
-        ));
+        );
+        return new Sender($requestsContainer);
     }
 
     /**

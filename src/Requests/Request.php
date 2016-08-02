@@ -1,11 +1,11 @@
 <?php
 
-namespace seregazhuk\SmsIntel;
+namespace seregazhuk\SmsIntel\Requests;
 
 use seregazhuk\SmsIntel\Contracts\HttpInterface;
 use seregazhuk\SmsIntel\Contracts\RequestInterface;
 
-class Request implements RequestInterface
+abstract class Request implements RequestInterface
 {
     const BASE_URL = 'https://lcab.smsintel.ru/API/XML/';
 
@@ -24,11 +24,30 @@ class Request implements RequestInterface
      */
     protected $password;
 
-    public function __construct(HttpInterface $http, $login = '', $password = '')
+    public function __construct(HttpInterface $http)
     {
         $this->client = $http;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getAllowedMethods()
+    {
+        return [];
+    }
+
+    /**
+     * @param string $login
+     * @param string $password
+     * @return $this
+     */
+    public function setCredentials($login, $password)
+    {
         $this->login = $login;
         $this->password = $password;
+
+        return $this;
     }
 
     /**
@@ -43,17 +62,15 @@ class Request implements RequestInterface
         $endPoint = $this->makeEndPoint($action);
         $requestBody = $this->createRequestBody($params);
 
-        return $this->client->post($endPoint, $requestBody);
+        $response = $this->client->post($endPoint, $requestBody);
+        return $this->parseResponse($response);
     }
 
     /**
      * @param string $action
      * @return string
      */
-    protected function makeEndPoint($action)
-    {
-        return self::BASE_URL . $action . '.php';
-    }
+    abstract protected function makeEndPoint($action);
 
     /**
      * @param array $params
@@ -68,6 +85,14 @@ class Request implements RequestInterface
             ],
             $params);
 
-        return (new XMLFormatter($params))->toXml();
+        return $this->formatRequestBody($params);
     }
+
+    /**
+     * @param array $requestBody
+     * @return mixed
+     */
+    abstract protected function formatRequestBody(array $requestBody);
+
+    abstract protected function parseResponse($response);
 }

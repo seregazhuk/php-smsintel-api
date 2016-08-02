@@ -43,11 +43,11 @@ class GuzzleHttpAdapter implements HttpInterface {
      */
     public function post($uri, $body)
     {
-        $response = $this
+        return $this
             ->client
             ->post($uri, [], $body)
-            ->send();
-        return $this->parseResponse($response);
+            ->send()
+            ->getBody(true);
     }
 
     /**
@@ -59,17 +59,5 @@ class GuzzleHttpAdapter implements HttpInterface {
         $this->client->setBaseUrl($url);
 
         return $this;
-    }
-
-    /**
-     * Parses XML from response and returns it as an array
-     *
-     * @param Response $response
-     * @return array
-     */
-    protected function parseResponse(Response $response)
-    {
-        $xml = simplexml_load_string($response->getBody(true));
-        return (array)$xml->children();
     }
 }
