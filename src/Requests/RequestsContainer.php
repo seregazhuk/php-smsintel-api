@@ -56,7 +56,6 @@ class RequestsContainer
      */
     public function getRequest($requestClass)
     {
-        $requestClass = strtolower($requestClass);
         // Check if an instance has already been initiated
         if (!isset($this->requests[$requestClass])) {
             $this->addRequest($requestClass);

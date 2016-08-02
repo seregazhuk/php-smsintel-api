@@ -4,8 +4,6 @@ namespace seregazhuk\SmsIntel\Requests;
 
 class JSONRequest extends Request
 {
-    const BASE_URL = 'https://lcab.smsintel.ru/lcabApi/';
-
     /**
      * @return array
      */
@@ -28,9 +26,9 @@ class JSONRequest extends Request
      * @param string $action
      * @return string
      */
-    protected function makeEndPoint($action)
+    public function makeEndPoint($action)
     {
-        return self::BASE_URL . $action . '.php';
+        return 'https://lcab.smsintel.ru/lcabApi/' . $action . '.php';
     }
 
     /**
