@@ -30,6 +30,14 @@ abstract class Request implements RequestInterface
     }
 
     /**
+     * @return array
+     */
+    public static function getAllowedMethods()
+    {
+        return [];
+    }
+
+    /**
      * @param string $login
      * @param string $password
      * @return $this

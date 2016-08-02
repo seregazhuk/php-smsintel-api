@@ -9,17 +9,12 @@ use seregazhuk\SmsIntel\Exceptions\WrongRequestException;
 
 class RequestsContainer
 {
-    const REQUESTS_NAMESPACE = 'seregazhuk\\SmsIntel\\Requests\\';
-
-    protected $requestsToActionMap = [
-        'XMLRequest' => [
-            'getBalance',
-            'cancel'
-        ],
-        'JSONRequest' => [
-            'getSource'
-        ]
-    ];
+    protected function getRequestsActionsMap() {
+        return [
+            XMLRequest::class  => XMLRequest::getAllowedMethods(),
+            JSONRequest::class => JSONRequest::getAllowedMethods(),
+        ];
+    }
 
     /**
      * @var HttpInterface
@@ -76,7 +71,7 @@ class RequestsContainer
      */
     public function resolveRequestByAction($action)
     {
-        foreach ($this->requestsToActionMap as $requestClass => $actions) {
+        foreach ($this->getRequestsActionsMap() as $requestClass => $actions) {
             if(in_array($action, $actions)) {
                 return $this->getRequest($requestClass);
             }
@@ -87,19 +82,18 @@ class RequestsContainer
 
     /**
      * Creates request by class name, and if success saves
-     * it to requests array. Request class must be in REQUESTS_NAMESPACE.
+     * it to requests array.
      *
-     * @param string $request
+     * @param string $requestClass
      *
      * @throws WrongRequestException
      */
-    protected function addRequest($request)
+    protected function addRequest($requestClass)
     {
-        $className = self::REQUESTS_NAMESPACE . ucfirst($request);
-        if (!class_exists($className)) {
-            throw new WrongRequestException("Request $className not found.");
+        if (!class_exists($requestClass)) {
+            throw new WrongRequestException("Request $requestClass not found.");
         }
-        $this->requests[$request] = $this->buildRequest($className);
+        $this->requests[$requestClass] = $this->buildRequest($requestClass);
     }
 
     /**

@@ -7,6 +7,15 @@ class JSONRequest extends Request
     const BASE_URL = 'https://lcab.smsintel.ru/lcabApi/';
 
     /**
+     * @return array
+     */
+    public static function getAllowedMethods() {
+        return [
+            'getSource',
+        ];
+    }
+
+    /**
      * @param string $source
      * @return array|null
      */
