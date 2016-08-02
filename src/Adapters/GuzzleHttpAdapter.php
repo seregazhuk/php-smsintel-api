@@ -21,25 +21,24 @@ class GuzzleHttpAdapter implements HttpInterface {
     /**
      * @param $uri
      * @param array $params
-     * @return array
+     * @return string
      */
     public function get($uri, $params = [])
     {
         if(!empty($params)){
             $uri .= '?'. http_build_query($params);
         }
-        $response = $this
+        return $this
             ->client
             ->get($uri)
-            ->send();
-
-        return $this->parseResponse($response);
+            ->send()
+            ->getBody(true);
     }
 
     /**
      * @param string $uri
      * @param array $body
-     * @return array
+     * @return string
      */
     public function post($uri, $body)
     {
