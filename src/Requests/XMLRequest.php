@@ -117,12 +117,11 @@ class XMLRequest extends Request
         return $this->exec('balance');
     }
 
-
     /**
      * @param string $action
      * @return string
      */
-    protected function makeEndPoint($action)
+    public function makeEndPoint($action)
     {
         return 'https://lcab.smsintel.ru/API/XML/' . $action . '.php';
     }

@@ -56,4 +56,9 @@ class RequestsContainerTest extends \PHPUnit_Framework_TestCase
             Mockery::mock(HttpInterface::class), 'login', 'password'
         );
     }
+
+    protected function tearDown()
+    {
+        Mockery::close();
+    }
 }

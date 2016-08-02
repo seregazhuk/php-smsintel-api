@@ -97,5 +97,5 @@ abstract class Request implements RequestInterface
      * @param string $action
      * @return string
      */
-    abstract protected function makeEndPoint($action);
+    abstract public function makeEndPoint($action);
 }

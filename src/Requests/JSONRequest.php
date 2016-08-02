@@ -26,7 +26,7 @@ class JSONRequest extends Request
      * @param string $action
      * @return string
      */
-    protected function makeEndPoint($action)
+    public function makeEndPoint($action)
     {
         return 'https://lcab.smsintel.ru/lcabApi/' . $action . '.php';
     }
