@@ -2,11 +2,18 @@
 
 namespace seregazhuk\SmsIntel\Requests;
 
-use seregazhuk\SmsIntel\XMLFormatter;
-
 class JSONRequest extends Request
 {
     const BASE_URL = 'https://lcab.smsintel.ru/lcabApi/';
+
+    /**
+     * @param string $source
+     * @return array|null
+     */
+    public function getSource($source)
+    {
+        return $this->exec('requestSource', ['source' => $source]);
+    }
 
     /**
      * @param string $action
@@ -23,6 +30,15 @@ class JSONRequest extends Request
      */
     protected function formatRequestBody(array $requestBody)
     {
-        return (new XMLFormatter($requestBody))->toXml();
+        return $requestBody;
+    }
+
+    /**
+     * @param string $response
+     * @return array
+     */
+    protected function parseResponse($response)
+    {
+        return json_decode($response, true);
     }
 }

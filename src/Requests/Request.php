@@ -54,7 +54,8 @@ abstract class Request implements RequestInterface
         $endPoint = $this->makeEndPoint($action);
         $requestBody = $this->createRequestBody($params);
 
-        return $this->client->post($endPoint, $requestBody);
+        $response = $this->client->post($endPoint, $requestBody);
+        return $this->parseResponse($response);
     }
 
     /**
@@ -84,4 +85,6 @@ abstract class Request implements RequestInterface
      * @return mixed
      */
     abstract protected function formatRequestBody(array $requestBody);
+
+    abstract protected function parseResponse($response);
 }

@@ -123,4 +123,16 @@ class XMLRequest extends Request
     {
         return (new XMLFormatter($requestBody))->toXml();
     }
+
+    /**
+     * Parses XML from response and returns it as an array
+     *
+     * @param string $response
+     * @return array
+     */
+    protected function parseResponse($response)
+    {
+        $xml = simplexml_load_string($response);
+        return (array)$xml->children();
+    }
 }

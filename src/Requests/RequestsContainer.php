@@ -15,6 +15,9 @@ class RequestsContainer
         'XMLRequest' => [
             'getBalance',
             'cancel'
+        ],
+        'JSONRequest' => [
+            'getSource'
         ]
     ];
 
