@@ -124,7 +124,7 @@ class XMLRequest extends Request
      */
     protected function makeEndPoint($action)
     {
-        return self::BASE_URL . $action . '.php';
+        return 'https://lcab.smsintel.ru/API/XML/' . $action . '.php';
     }
 
     /**

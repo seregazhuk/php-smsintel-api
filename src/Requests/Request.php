@@ -7,7 +7,6 @@ use seregazhuk\SmsIntel\Contracts\RequestInterface;
 
 abstract class Request implements RequestInterface
 {
-    const BASE_URL = 'https://lcab.smsintel.ru/API/XML/';
 
     /**
      * @var HttpInterface
@@ -67,12 +66,6 @@ abstract class Request implements RequestInterface
     }
 
     /**
-     * @param string $action
-     * @return string
-     */
-    abstract protected function makeEndPoint($action);
-
-    /**
      * @param array $params
      * @return string
      */
@@ -94,5 +87,15 @@ abstract class Request implements RequestInterface
      */
     abstract protected function formatRequestBody(array $requestBody);
 
+    /**
+     * @param string $response
+     * @return array
+     */
     abstract protected function parseResponse($response);
+
+    /**
+     * @param string $action
+     * @return string
+     */
+    abstract protected function makeEndPoint($action);
 }
