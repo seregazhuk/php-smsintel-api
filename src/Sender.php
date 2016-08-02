@@ -2,7 +2,6 @@
 
 namespace seregazhuk\SmsIntel;
 
-use seregazhuk\SmsIntel\Adapters\GuzzleHttpAdapter;
 use seregazhuk\SmsIntel\Contracts\RequestInterface;
 
 class Sender
@@ -27,9 +26,9 @@ class Sender
      * @param array $params
      * @return array|null
      */
-    public function send($to, $from, $message, $params = [])
+    public function send($to, $from, $message, $params = [ ])
     {
-        $to = is_array($to) ? $to : [$to];
+        $to = is_array($to) ? $to : [ $to ];
 
         $requestParams = array_merge(
             [
@@ -48,7 +47,7 @@ class Sender
      */
     public function cancel($smsId)
     {
-        return $this->request->exec('cancel', ['smsid' => $smsId]);
+        return $this->request->exec('cancel', [ 'smsid' => $smsId ]);
     }
 
     /**
@@ -92,7 +91,7 @@ class Sender
      */
     public function getReportBySms($smsId)
     {
-        return $this->request->exec('report', ['smsid' => $smsId]);
+        return $this->request->exec('report', [ 'smsid' => $smsId ]);
     }
 
     /**
