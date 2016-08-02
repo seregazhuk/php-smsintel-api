@@ -1,20 +1,13 @@
 <?php
 
-namespace seregazhuk\SmsIntel;
+namespace seregazhuk\SmsIntel\Requests;
 
 use seregazhuk\SmsIntel\Contracts\HttpInterface;
 use seregazhuk\SmsIntel\Contracts\RequestInterface;
-use seregazhuk\SmsIntel\Exceptions\AuthException;
-use seregazhuk\SmsIntel\Exceptions\BadEndpointException;
 
-class Request implements RequestInterface
+abstract class Request implements RequestInterface
 {
-
     const BASE_URL = 'https://lcab.smsintel.ru/API/XML/';
-
-    protected $endPoints = [
-        'send' => 'send',
-    ];
 
     /**
      * @var HttpInterface
@@ -31,9 +24,17 @@ class Request implements RequestInterface
      */
     protected $password;
 
-    public function __construct(HttpInterface $http, $login = '', $password = '')
+    public function __construct(HttpInterface $http)
     {
         $this->client = $http;
+    }
+
+    /**
+     * @param string $login
+     * @param string $password
+     */
+    public function setCredentials($login, $password)
+    {
         $this->login = $login;
         $this->password = $password;
     }
@@ -45,7 +46,7 @@ class Request implements RequestInterface
      * @param array $params
      * @return array|null
      */
-    public function exec($action, $params)
+    public function exec($action, $params = [ ])
     {
         $endPoint = $this->makeEndPoint($action);
         $requestBody = $this->createRequestBody($params);
@@ -56,16 +57,8 @@ class Request implements RequestInterface
     /**
      * @param string $action
      * @return string
-     * @throws BadEndpointException
      */
-    protected function makeEndPoint($action)
-    {
-        if (!isset($this->endPoints[$action])) {
-            throw new BadEndpointException("Action $action doesn't exist");
-        }
-
-        return self::BASE_URL . $this->endPoints[$action] . '.php';
-    }
+    abstract protected function makeEndPoint($action);
 
     /**
      * @param array $params
@@ -80,6 +73,12 @@ class Request implements RequestInterface
             ],
             $params);
 
-        return (new XMLFormatter($params))->toXml();
+        return $this->formatRequestBody($params);
     }
+
+    /**
+     * @param array $requestBody
+     * @return mixed
+     */
+    abstract protected function formatRequestBody(array $requestBody);
 }

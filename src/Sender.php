@@ -3,14 +3,16 @@
 namespace seregazhuk\SmsIntel;
 
 use seregazhuk\SmsIntel\Exceptions\AuthException;
+use seregazhuk\SmsIntel\Contracts\RequestInterface;
 use seregazhuk\SmsIntel\Adapters\GuzzleHttpAdapter;
+use seregazhuk\SmsIntel\Requests\RequestsContainer;
 
 class Sender
 {
     /**
-     * @var Request
+     * @var RequestInterface[]
      */
-    protected $request;
+    protected $requests = [];
 
     /**
      * @param $login
@@ -40,9 +42,9 @@ class Sender
      * @param string $login
      * @param string $password
      */
-    private function __construct($login, $password)
+    private function __construct(RequestsContainer $requestsContainer, $login, $password)
     {
-        $this->request = new Request(
+        $this->requestsContainer = new Request(
             new GuzzleHttpAdapter(), $login, $password
         );
     }
