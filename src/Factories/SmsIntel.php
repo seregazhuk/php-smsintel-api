@@ -30,7 +30,7 @@ class SmsIntel
      */
     protected static function checkCredentials($login, $password)
     {
-        if(empty($login) || empty($password)) {
+        if (empty($login) || empty($password)) {
             throw new AuthException('You must provide login and password to send messages!');
         }
     }
