@@ -2,122 +2,37 @@
 
 namespace seregazhuk\SmsIntel;
 
-use seregazhuk\SmsIntel\Exceptions\AuthException;
-use seregazhuk\SmsIntel\Contracts\RequestInterface;
-use seregazhuk\SmsIntel\Adapters\GuzzleHttpAdapter;
 use seregazhuk\SmsIntel\Requests\RequestsContainer;
 
 class Sender
 {
     /**
-     * @var RequestInterface[]
+     * @var RequestsContainer
      */
-    protected $requests = [];
+    protected $requestsContainer;
 
     /**
-     * @param RequestInterface $request
+     * @param RequestsContainer $requestsContainer
      */
-    public function __construct(RequestInterface $request)
+    public function __construct(RequestsContainer $requestsContainer)
     {
-        $this->request = $request;
+        $this->requestsContainer = $requestsContainer;
     }
 
     /**
-     * @param string|array $to
-     * @param string $from
-     * @param string $message
-     * @param array $params
-     * @return array|null
+     * Proxies all methods to appropriate Request object
+     *
+     * @param string $method
+     * @param array $arguments
+     * @return array
      */
-    public function send($to, $from, $message, $params = [ ])
+    function __call($method, $arguments)
     {
-        $to = is_array($to) ? $to : [ $to ];
+        $request = $this
+            ->requestsContainer
+            ->resolveRequestByAction($method);
 
-        $requestParams = array_merge(
-            [
-                'to'     => $to,
-                'text'   => $message,
-                'source' => $from,
-            ], $params
-        );
-
-        return $this->request->exec('send', $requestParams);
+        return $request->{$method}($arguments);
     }
 
-    /**
-     * @param string $smsId
-     * @return array|null
-     */
-    public function cancel($smsId)
-    {
-        return $this->request->exec('cancel', [ 'smsid' => $smsId ]);
-    }
-
-    /**
-     * @param string $coupon
-     * @param bool $markAsUsed
-     * @param null|string $phone
-     * @return array|null
-     */
-    public function checkCoupon($coupon, $markAsUsed = true, $phone = null)
-    {
-        return $this->request->exec(
-            'checkcode',
-            [
-                'code'       => $coupon,
-                'markAsUsed' => (int)$markAsUsed,
-                'phone'      => $phone,
-            ]
-        );
-    }
-
-    /**
-     * @param string $dateFrom
-     * @param string $dateTo
-     * @param null|string $source
-     * @return array|null
-     */
-    public function getReport($dateFrom, $dateTo, $source = null)
-    {
-        return $this->request->exec(
-            'report', [
-                'start'  => $dateFrom,
-                'stop'   => $dateTo,
-                'source' => $source,
-            ]
-        );
-    }
-
-    /**
-     * @param string $smsId
-     * @return array|null
-     */
-    public function getReportBySms($smsId)
-    {
-        return $this->request->exec('report', [ 'smsid' => $smsId ]);
-    }
-
-    /**
-     * @param string $dateFrom
-     * @param string $dateTo
-     * @param null|string $number
-     * @return array|null
-     */
-    public function getReportByNumber($dateFrom, $dateTo, $number = null)
-    {
-        return $this->request->exec('reportNumber',
-            [
-                'start'  => $dateFrom,
-                'stop'   => $dateTo,
-                'number' => $number,
-            ]);
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getBalance()
-    {
-        return $this->request->exec('balance');
-    }
 }

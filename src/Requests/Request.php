@@ -32,11 +32,14 @@ abstract class Request implements RequestInterface
     /**
      * @param string $login
      * @param string $password
+     * @return $this
      */
     public function setCredentials($login, $password)
     {
         $this->login = $login;
         $this->password = $password;
+
+        return $this;
     }
 
     /**

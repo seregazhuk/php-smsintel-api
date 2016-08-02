@@ -11,14 +11,33 @@ class RequestsContainer
 {
     const REQUESTS_NAMESPACE = 'seregazhuk\\SmsIntel\\Requests\\';
 
+    protected $requestsToActionMap = [
+        'XMLRequest' => [
+            'getBalance',
+            'cancel'
+        ]
+    ];
+
     /**
      * @var HttpInterface
      */
-    private $http;
+    protected $http;
 
-    public function __construct(HttpInterface $http)
+    /**
+     * @var string
+     */
+    protected $login;
+
+    /**
+     * @var string
+     */
+    protected $password;
+
+    public function __construct(HttpInterface $http, $login, $password)
     {
         $this->http = $http;
+        $this->login = $login;
+        $this->password = $password;
     }
 
     /**
@@ -31,20 +50,36 @@ class RequestsContainer
      * in requests array, it will try to create it, then save
      * it, and then return.
      *
-     * @param string $request
+     * @param string $requestClass
      *
      * @throws WrongRequestException
      *
      * @return RequestInterface
      */
-    public function getRequest($request)
+    public function getRequest($requestClass)
     {
-        $request = strtolower($request);
+        $requestClass = strtolower($requestClass);
         // Check if an instance has already been initiated
-        if (!isset($this->requests[$request])) {
-            $this->addRequest($request);
+        if (!isset($this->requests[$requestClass])) {
+            $this->addRequest($requestClass);
         }
-        return $this->requests[$request];
+        return $this->requests[$requestClass];
+    }
+
+    /**
+     * @param $action
+     * @return string
+     * @throws WrongRequestException
+     */
+    public function resolveRequestByAction($action)
+    {
+        foreach ($this->requestsToActionMap as $requestClass => $actions) {
+            if(in_array($action, $actions)) {
+                return $this->getRequest($requestClass);
+            }
+        }
+
+        throw new WrongRequestException("Action $action doesn't exist!");
     }
 
     /**
@@ -75,6 +110,7 @@ class RequestsContainer
     protected function buildRequest($className)
     {
         return (new ReflectionClass($className))
-            ->newInstanceArgs([$this->http]);
+            ->newInstanceArgs([$this->http])
+            ->setCredentials($this->login, $this->password);
     }
 }
