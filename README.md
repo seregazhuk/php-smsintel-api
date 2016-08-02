@@ -1,6 +1,7 @@
 # SmsIntel PHP Api
 
 [![Build Status](https://travis-ci.org/seregazhuk/php-smsintel-api.svg?branch=master)](https://travis-ci.org/seregazhuk/php-smsintel-api)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/seregazhuk/php-smsintel-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/seregazhuk/php-smsintel-api/?branch=master)
 
 You can make requests to [smsintel API](http://www.smsintel.ru/integration/) to manage your sms.
 
