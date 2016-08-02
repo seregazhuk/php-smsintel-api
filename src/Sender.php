@@ -15,38 +15,11 @@ class Sender
     protected $requests = [];
 
     /**
-     * @param $login
-     * @param $password
-     * @return static
+     * @param RequestInterface $request
      */
-    public static function create($login, $password)
+    public function __construct(RequestInterface $request)
     {
-        self::checkCredentials($login, $password);
-
-        return new static($login, $password);
-    }
-
-    /**
-     * @param string $login
-     * @param string $password
-     * @throws AuthException
-     */
-    protected static function checkCredentials($login, $password)
-    {
-        if(empty($login) || empty($password)) {
-            throw new AuthException('You must provide login and password to send messages!');
-        }
-    }
-
-    /**
-     * @param string $login
-     * @param string $password
-     */
-    private function __construct(RequestsContainer $requestsContainer, $login, $password)
-    {
-        $this->requestsContainer = new Request(
-            new GuzzleHttpAdapter(), $login, $password
-        );
+        $this->request = $request;
     }
 
     /**
@@ -56,9 +29,9 @@ class Sender
      * @param array $params
      * @return array|null
      */
-    public function send($to, $from, $message, $params = [])
+    public function send($to, $from, $message, $params = [ ])
     {
-        $to = is_array($to) ? $to : [$to];
+        $to = is_array($to) ? $to : [ $to ];
 
         $requestParams = array_merge(
             [
@@ -69,5 +42,82 @@ class Sender
         );
 
         return $this->request->exec('send', $requestParams);
+    }
+
+    /**
+     * @param string $smsId
+     * @return array|null
+     */
+    public function cancel($smsId)
+    {
+        return $this->request->exec('cancel', [ 'smsid' => $smsId ]);
+    }
+
+    /**
+     * @param string $coupon
+     * @param bool $markAsUsed
+     * @param null|string $phone
+     * @return array|null
+     */
+    public function checkCoupon($coupon, $markAsUsed = true, $phone = null)
+    {
+        return $this->request->exec(
+            'checkcode',
+            [
+                'code'       => $coupon,
+                'markAsUsed' => (int)$markAsUsed,
+                'phone'      => $phone,
+            ]
+        );
+    }
+
+    /**
+     * @param string $dateFrom
+     * @param string $dateTo
+     * @param null|string $source
+     * @return array|null
+     */
+    public function getReport($dateFrom, $dateTo, $source = null)
+    {
+        return $this->request->exec(
+            'report', [
+                'start'  => $dateFrom,
+                'stop'   => $dateTo,
+                'source' => $source,
+            ]
+        );
+    }
+
+    /**
+     * @param string $smsId
+     * @return array|null
+     */
+    public function getReportBySms($smsId)
+    {
+        return $this->request->exec('report', [ 'smsid' => $smsId ]);
+    }
+
+    /**
+     * @param string $dateFrom
+     * @param string $dateTo
+     * @param null|string $number
+     * @return array|null
+     */
+    public function getReportByNumber($dateFrom, $dateTo, $number = null)
+    {
+        return $this->request->exec('reportNumber',
+            [
+                'start'  => $dateFrom,
+                'stop'   => $dateTo,
+                'number' => $number,
+            ]);
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getBalance()
+    {
+        return $this->request->exec('balance');
     }
 }
