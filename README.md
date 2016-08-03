@@ -217,3 +217,9 @@ Get report for period for all sources:
 ```php
 $result = $sender->getReportBySource($dateFrom, $dateTo);
 ```
+
+## How can I thank you?
+
+Why not star the github repo? I'd love the attention!
+
+Thanks!
