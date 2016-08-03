@@ -101,7 +101,7 @@ $contacts = $sender->getContacts($groupId);
 
 Contacts by phone number:
 ```php
-$phone = '79999999999;
+$phone = '79999999999';
 $contacts = $sender->getContacts(null, $phone);
 
 // or with group:
