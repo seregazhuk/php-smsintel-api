@@ -1,6 +1,6 @@
 {
     "name": "seregazhuk/smsintel-api",
-    "description": "PHP library to send sms via SmsIntel service",
+    "description": "A PHP wrapper for the SmsIntel api. Represents one interface for both XML and JSON API requests.",
 	"keywords": [
 		"php",
 		"lib",
