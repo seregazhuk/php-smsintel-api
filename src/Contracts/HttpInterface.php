@@ -2,7 +2,8 @@
 
 namespace seregazhuk\SmsIntel\Contracts;
 
-interface HttpInterface {
+interface HttpInterface
+{
 
     /**
      * @param $uri

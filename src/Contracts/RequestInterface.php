@@ -2,8 +2,8 @@
 
 namespace seregazhuk\SmsIntel\Contracts;
 
-interface RequestInterface {
-
+interface RequestInterface
+{
     /**
      * Send the request to API
      * @param $uri

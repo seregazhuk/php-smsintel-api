@@ -7,7 +7,8 @@ class JSONRequest extends Request
     /**
      * @return array
      */
-    public static function getAllowedMethods() {
+    public static function getAllowedMethods()
+    {
         return [
             'getSource',
         ];

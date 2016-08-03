@@ -9,7 +9,8 @@ use seregazhuk\SmsIntel\Exceptions\WrongRequestException;
 
 class RequestsContainer
 {
-    protected function getRequestsActionsMap() {
+    protected function getRequestsActionsMap()
+    {
         return [
             XMLRequest::class  => XMLRequest::getAllowedMethods(),
             JSONRequest::class => JSONRequest::getAllowedMethods(),

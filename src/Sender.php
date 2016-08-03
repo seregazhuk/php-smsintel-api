@@ -45,11 +45,16 @@ class Sender
     protected function callRequestMethod(RequestInterface $request, $method, array $arguments)
     {
         switch (count($arguments)) {
-            case 1: return $request->{$method}($arguments[0]);
-            case 2: return $request->{$method}($arguments[0], $arguments[1]);
-            case 3: return $request->{$method}($arguments[0], $arguments[1], $arguments[2]);
-            case 4: return $request->{$method}($arguments[0], $arguments[1], $arguments[2], $arguments[3], $arguments[4]);
-            default: return $request->{$method}($arguments);
+            case 1:
+                return $request->{$method}($arguments[0]);
+            case 2:
+                return $request->{$method}($arguments[0], $arguments[1]);
+            case 3:
+                return $request->{$method}($arguments[0], $arguments[1], $arguments[2]);
+            case 4:
+                return $request->{$method}($arguments[0], $arguments[1], $arguments[2], $arguments[3], $arguments[4]);
+            default:
+                return $request->{$method}($arguments);
         }
     }
 }

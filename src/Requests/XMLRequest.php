@@ -6,7 +6,8 @@ use seregazhuk\SmsIntel\XMLFormatter;
 
 class XMLRequest extends Request
 {
-    public static function getAllowedMethods() {
+    public static function getAllowedMethods()
+    {
         return [
             'send',
             'cancel',
@@ -34,7 +35,8 @@ class XMLRequest extends Request
                 'to'     => $to,
                 'text'   => $message,
                 'source' => $from,
-            ], $params
+            ],
+            $params
         );
 
         return $this->exec('send', $requestParams);
@@ -76,7 +78,8 @@ class XMLRequest extends Request
     public function getReport($dateFrom, $dateTo, $source = null)
     {
         return $this->exec(
-            'report', [
+            'report',
+            [
                 'start'  => $dateFrom,
                 'stop'   => $dateTo,
                 'source' => $source,

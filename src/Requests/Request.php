@@ -76,7 +76,8 @@ abstract class Request implements RequestInterface
                 'login'    => $this->login,
                 'password' => $this->password,
             ],
-            $params);
+            $params
+        );
 
         return $this->formatRequestBody($params);
     }

@@ -20,7 +20,9 @@ class SmsIntel
         self::checkCredentials($login, $password);
 
         $requestsContainer = new RequestsContainer(
-            new GuzzleHttpAdapter(), $login, $password
+            new GuzzleHttpAdapter(),
+            $login,
+            $password
         );
         return new Sender($requestsContainer);
     }

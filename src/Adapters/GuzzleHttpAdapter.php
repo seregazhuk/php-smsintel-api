@@ -6,7 +6,8 @@ use Guzzle\Http\Client;
 use Guzzle\Http\Message\Response;
 use seregazhuk\SmsIntel\Contracts\HttpInterface;
 
-class GuzzleHttpAdapter implements HttpInterface {
+class GuzzleHttpAdapter implements HttpInterface
+{
 
     /**
      * @var Client
@@ -17,7 +18,7 @@ class GuzzleHttpAdapter implements HttpInterface {
     {
         $this->client = new Client();
     }
-	
+
     /**
      * @param $uri
      * @param array $params
@@ -25,14 +26,10 @@ class GuzzleHttpAdapter implements HttpInterface {
      */
     public function get($uri, $params = [])
     {
-        if(!empty($params)){
-            $uri .= '?'. http_build_query($params);
+        if (!empty($params)) {
+            $uri .= '?' . http_build_query($params);
         }
-        return $this
-            ->client
-            ->get($uri)
-            ->send()
-            ->getBody(true);
+        return $this->client->get($uri)->send()->getBody(true);
     }
 
     /**
@@ -42,11 +39,7 @@ class GuzzleHttpAdapter implements HttpInterface {
      */
     public function post($uri, $body)
     {
-        return $this
-            ->client
-            ->post($uri, [], $body)
-            ->send()
-            ->getBody(true);
+        return $this->client->post($uri, [], $body)->send()->getBody(true);
     }
 
     /**
