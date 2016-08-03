@@ -114,7 +114,7 @@ Create a new contact:
 ```php
 $contactInfo = [
 	'idGroup' => 1 // required
-	'phone'   => '79999999999 // required
+	'phone'   => '79999999999' // required
 	'f'       => 'Second Name',
 	'i'       => 'First Name',
 	'o'       => 'Middle Name',
