@@ -20,6 +20,8 @@ Library provides common interface for making requests to both XML and JSON [smsi
 - [Quick Start](#quick-start)
 - [Sending messages](#sending-messages)
 - [Groups and contacts](#groups-and-contacts)
+- [Account](#account)
+- [Reports](#reports)
 
 ## Dependencies
 Library requires CURL extension and PHP 5.5.9 or above.
@@ -182,4 +184,36 @@ Only check discount coupon:
 
 ```php
 $result = $sender->checkCoupon('couponCode', false);
+```
+
+## Reports
+
+Get report for period by phone number:
+
+```php
+$result = $sender->getReportByNumber($dateFrom, $dateTo, '79999999999');
+```
+
+Get report for period and for all numbers:
+
+```php
+$result = $sender->getReportByNumber($dateFrom, $dateTo);
+```
+
+Get report by smsId:
+
+```php
+$result = $sender->getReportBySms($smsId);
+```
+
+Get report for period by source:
+
+```php
+$result = $sender->getReportBySource($dateFrom, $dateTo, 'FromPHP');
+```
+
+Get report for period for all sources:
+
+```php
+$result = $sender->getReportBySource($dateFrom, $dateTo);
 ```

@@ -10,10 +10,10 @@ class XMLRequest extends Request
     {
         return [
             'cancel',
-            'getReport',
             'getBalance',
             'checkCoupon',
             'getReportBySms',
+            'getReportBySource',
             'getReportByNumber',
         ];
     }
@@ -51,7 +51,7 @@ class XMLRequest extends Request
      * @param null|string $source
      * @return array|null
      */
-    public function getReport($dateFrom, $dateTo, $source = null)
+    public function getReportBySource($dateFrom, $dateTo, $source = null)
     {
         return $this->exec(
             'report',
@@ -78,7 +78,7 @@ class XMLRequest extends Request
      * @param null|string $number
      * @return array|null
      */
-    public function getReportByNumber($dateFrom, $dateTo, $number = null)
+    public function getReportByNumber($dateFrom , $dateTo, $number = null)
     {
         return $this->exec('reportNumber',
             [

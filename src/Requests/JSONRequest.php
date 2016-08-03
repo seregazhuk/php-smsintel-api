@@ -10,15 +10,15 @@ class JSONRequest extends Request
     public static function getAllowedMethods()
     {
         return [
-            'getContacts',
-            'addContact',
-            'requestSource',
-            'createGroup',
+            'send',
             'getGroups',
             'editGroup',
-            'removeContact',
-            'send',
+            'addContact',
+            'getContacts',
+            'createGroup',
             'getPhoneInfo',
+            'requestSource',
+            'removeContact',
         ];
     }
 

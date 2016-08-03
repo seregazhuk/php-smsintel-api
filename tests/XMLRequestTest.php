@@ -68,7 +68,7 @@ class XMLRequestTest extends RequestTest
                     'stop' => $dateTo,
                     'source' => $source
                 ])
-            ->getReport($dateFrom, $dateTo, $source);
+            ->getReportBySource($dateFrom, $dateTo, $source);
     }
 
     /**
