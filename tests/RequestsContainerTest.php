@@ -3,6 +3,7 @@
 namespace seregazhuk\tests;
 
 use Mockery;
+use seregazhuk\SmsIntel\Requests\JSONRequest;
 use seregazhuk\SmsIntel\Requests\XMLRequest;
 use seregazhuk\SmsIntel\Contracts\HttpInterface;
 use seregazhuk\SmsIntel\Requests\RequestsContainer;
@@ -34,7 +35,7 @@ class RequestsContainerTest extends \PHPUnit_Framework_TestCase
         $request = $this->createContainerObject()
             ->resolveRequestByAction('send');
 
-        $this->assertInstanceOf(XMLRequest::class, $request);
+        $this->assertInstanceOf(JSONRequest::class, $request);
     }
 
     /**

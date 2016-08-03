@@ -13,7 +13,7 @@
 <a href="https://packagist.org/packages/seregazhuk/smsintel-api"><img src="https://poser.pugx.org/seregazhuk/smsintel-api/downloads"></a>
 </p>
 
-You can make requests to [smsintel API](http://www.smsintel.ru/integration/) to manage your sms.
+Library provides common interface for making requests to both XML and JSON [smsintel API](http://www.smsintel.ru/integration/).
 
 - [Dependencies](#dependencies)
 - [Installation](#installation)
@@ -41,4 +41,20 @@ $sender = SmsIntel::create('login', 'password');
 // send sms
 $result = $sender->send('phoneNumber', 'From', 'Your message text');
 
+```
+
+## Sending messages
+
+To send message to one phone number:
+
+```php
+$result = $sender->send('phoneNumber', 'From', 'Your message text');
+```
+
+You can pass an array of phones:
+
+```php
+$phones = [
+];
+$result = $sender->send('phoneNumber', 'From', 'Your message text');
 ```

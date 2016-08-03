@@ -11,6 +11,7 @@ class JSONRequest extends Request
     {
         return [
             'getSource',
+            'send'
         ];
     }
 
@@ -22,6 +23,30 @@ class JSONRequest extends Request
     {
         return $this->exec('requestSource', ['source' => $source]);
     }
+
+    /**
+     * @param string|array $to
+     * @param string $from
+     * @param string $message
+     * @param array $params
+     * @return array|null
+     */
+    public function send($to, $from, $message, $params = [ ])
+    {
+        $to = is_array($to) ? $to : [ $to ];
+
+        $requestParams = array_merge(
+            [
+                'to'     => $to,
+                'txt'   => $message,
+                'source' => $from,
+            ],
+            $params
+        );
+
+        return $this->exec('sendSms', $requestParams);
+    }
+
 
     /**
      * @param string $action

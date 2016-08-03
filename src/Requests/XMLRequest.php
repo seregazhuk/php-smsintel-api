@@ -9,7 +9,6 @@ class XMLRequest extends Request
     public static function getAllowedMethods()
     {
         return [
-            'send',
             'cancel',
             'getReport',
             'getBalance',
@@ -17,29 +16,6 @@ class XMLRequest extends Request
             'getReportBySms',
             'getReportByNumber',
         ];
-    }
-
-    /**
-     * @param string|array $to
-     * @param string $from
-     * @param string $message
-     * @param array $params
-     * @return array|null
-     */
-    public function send($to, $from, $message, $params = [ ])
-    {
-        $to = is_array($to) ? $to : [ $to ];
-
-        $requestParams = array_merge(
-            [
-                'to'     => $to,
-                'text'   => $message,
-                'source' => $from,
-            ],
-            $params
-        );
-
-        return $this->exec('send', $requestParams);
     }
 
     /**

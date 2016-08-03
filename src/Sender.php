@@ -52,6 +52,8 @@ class Sender
             case 3:
                 return $request->{$method}($arguments[0], $arguments[1], $arguments[2]);
             case 4:
+                return $request->{$method}($arguments[0], $arguments[1], $arguments[2], $arguments[3]);
+            case 5:
                 return $request->{$method}($arguments[0], $arguments[1], $arguments[2], $arguments[3], $arguments[4]);
             default:
                 return $request->{$method}($arguments);

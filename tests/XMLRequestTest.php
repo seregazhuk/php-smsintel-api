@@ -7,7 +7,7 @@ use seregazhuk\SmsIntel\XMLFormatter;
 use seregazhuk\SmsIntel\Requests\XMLRequest;
 use seregazhuk\SmsIntel\Contracts\HttpInterface;
 
-class XMLRequestTest extends \PHPUnit_Framework_TestCase
+class XMLRequestTest extends RequestTest
 {
     /** @test */
     public function it_cancels_message()
@@ -78,11 +78,8 @@ class XMLRequestTest extends \PHPUnit_Framework_TestCase
      */
     protected function createRequestMock($action, $requestParams = [])
     {
-        $httpClient = Mockery::mock(HttpInterface::class);
-        $requestParams = array_merge(
-            ['login' => 'test', 'password' => 'test'],
-            $requestParams
-        );
+        $httpClient = $this->getHttpMock();
+        $requestParams = $this->appendCredentialsToRequestParams($requestParams);
 
         $request = (new XMLRequest($httpClient))
             ->setCredentials('test', 'test');
@@ -97,9 +94,5 @@ class XMLRequestTest extends \PHPUnit_Framework_TestCase
 
         return $request;
 
-    }
-    protected function tearDown()
-    {
-        Mockery::close();
     }
 }
