@@ -11,7 +11,10 @@ class JSONRequest extends Request
     {
         return [
             'getSource',
-            'send'
+            'getContacts',
+            'requestSource',
+            'send',
+            'getPhoneInfo',
         ];
     }
 
@@ -45,6 +48,37 @@ class JSONRequest extends Request
         );
 
         return $this->exec('sendSms', $requestParams);
+    }
+
+    /**
+     * @param string $name
+     * @return array|null
+     */
+    public function requestSource($name)
+    {
+        return $this->exec('requestSource', ['source' => $name]);
+    }
+
+    /**
+     * @param null|string $groupId
+     * @param null|string $phone
+     * @return array|null
+     */
+    public function getContacts($groupId = null, $phone = null)
+    {
+        return $this->exec(
+            'getContacts',
+            ['idGroup' => $groupId, 'phone' => $phone]
+        );
+    }
+    
+    /**
+     * @param string $phone
+     * @return array|null
+     */
+    public function getPhoneInfo($phone)
+    {
+        return $this->exec('getPhoneInfo', ['phone' => $phone]);
     }
 
 

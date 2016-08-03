@@ -44,6 +44,8 @@ class Sender
      */
     protected function callRequestMethod(RequestInterface $request, $method, array $arguments)
     {
+        if(empty($arguments)) return $request->{$method}();
+
         switch (count($arguments)) {
             case 1:
                 return $request->{$method}($arguments[0]);

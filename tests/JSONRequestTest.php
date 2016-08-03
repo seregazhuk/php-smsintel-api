@@ -23,6 +23,58 @@ class JSONRequestTest extends RequestTest
             )->send($to, $from, $message);
     }
 
+    /** @test */
+    public function it_appends_additional_params_when_sending_messages()
+    {
+        $to = 'phoneTo';
+        $from = 'phoneFrom';
+        $message = 'test message';
+        $params = ['param1' => 'value1'];
+
+        $this->createRequestMock(
+            'sendSms',
+            [
+                'to'     => [$to],
+                'source' => $from,
+                'txt'    => $message,
+                'param1' => 'value1'
+            ]
+        )->send($to, $from, $message, $params);
+    }
+
+    /** @test */
+    public function it_requests_a_source_name()
+    {
+        $source = 'FromPHP';
+        $this->createRequestMock(
+                'requestSource',
+                ['source' => $source]
+            )
+            ->requestSource($source);
+    }
+
+    /** @test */
+    public function it_returns_phone_info()
+    {
+        $phone = '123456778';
+        $this->createRequestMock(
+                'getPhoneInfo',
+                ['phone' => $phone]
+            )
+            ->getPhoneInfo($phone);
+    }
+
+    /** @test */
+    public function it_returns_contacts()
+    {
+        $this
+            ->createRequestMock(
+                'getContacts',
+                ['idGroup'=>null, 'phone' => null]
+            )
+            ->getContacts();
+    }
+
     /**
      * @param string $action
      * @param array $requestParams
