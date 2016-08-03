@@ -64,6 +64,12 @@ $phones = [
 $result = $sender->send($phones, 'From', 'Your message text');
 ```
 
+Cancel sms by id:
+ 
+```php
+$result = $sender->cancel($smsId);
+```
+
 Request a source name:
 
 ```php
@@ -113,7 +119,7 @@ $contactInfo = [
 	'bday'    => 'YYYY-mm-dd',
 	'sex'     => 1 // 1 - male, 2 - female
 ];
-$res = $sender->addContact($contactInfo);
+$result = $sender->addContact($contactInfo);
 ```
 
 Remove contact by phone number:
@@ -143,13 +149,13 @@ $groups = $sender->getGroups(null, $groupName);
 Create a new group of contacts:
 
 ```php
-$res = $sender->createGroup('NewGroup');
+$result = $sender->createGroup('NewGroup');
 ```
 
 Edit group name by id:
 
 ```php
-$res = $sender->editGroup($newName, $groupId);
+$result = $sender->editGroup($newName, $groupId);
 ```
 
 ## Account
@@ -157,5 +163,23 @@ $res = $sender->editGroup($newName, $groupId);
 Get account info: 
 
 ```php
-$res = $sender->getAccountInfo();
+$result = $sender->getAccountInfo();
+```
+
+Get balance:
+
+```php
+$result = $sender->getBalance();
+```
+
+Use discount coupon:
+
+```php
+$result = $sender->checkCoupon('couponCode');
+```
+
+Only check discount coupon:
+
+```php
+$result = $sender->checkCoupon('couponCode', false);
 ```
