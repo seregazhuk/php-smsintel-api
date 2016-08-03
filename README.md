@@ -18,6 +18,8 @@ Library provides common interface for making requests to both XML and JSON [smsi
 - [Dependencies](#dependencies)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
+- [Sending messages](#sending-messages)
+- [Groups and contacts](#groups-and-contacts)
 
 ## Dependencies
 Library requires CURL extension and PHP 5.5.9 or above.
@@ -55,6 +57,105 @@ You can pass an array of phones:
 
 ```php
 $phones = [
+ '79999999999'
+ '79999999991'
+ '79999999992'
 ];
-$result = $sender->send('phoneNumber', 'From', 'Your message text');
+$result = $sender->send($phones, 'From', 'Your message text');
+```
+
+Request a source name:
+
+```php
+$result = $sender->requestSource('FromPHP');
+```
+
+## Groups and contacts
+
+Get contact info by phone number:
+
+```php
+$contact = $sender->getPhoneInfo('79999999999');
+```
+
+Get all contacts:
+
+```php	
+$contacts = $sender->getContacts();
+```
+
+Contacts for specific group:
+
+```php
+$groupId = 1;
+$contacts = $sender->getContacts($groupId);
+```
+
+Contacts by phone number:
+```php
+$phone = '79999999999;
+$contacts = $sender->getContacts(null, $phone);
+
+// or with group:
+$groupId = 1;
+$contacts = $sender->getContacts($groupId, $phone);
+```
+
+Create a new contact:
+
+```php
+$contactInfo = [
+	'idGroup' => 1 // required
+	'phone'   => '79999999999 // required
+	'f'       => 'Second Name',
+	'i'       => 'First Name',
+	'o'       => 'Middle Name',
+	'bday'    => 'YYYY-mm-dd',
+	'sex'     => 1 // 1 - male, 2 - female
+];
+$res = $sender->addContact($contactInfo);
+```
+
+Remove contact by phone number:
+
+```php
+$sender->removeContact('79999999999');
+```
+
+You can pass optionally group id:
+
+```php
+$groupId = 1;
+$sender->removeContact('79999999999', $groupId);
+```
+
+Get all groups:
+```php
+$groups = $send->getGroups();
+```
+
+Get group by id or name:
+```php
+$groups = $sender->getGroups($groupId);
+$groups = $sender->getGroups(null, $groupName);
+```
+
+Create a new group of contacts:
+
+```php
+$res = $sender->createGroup('NewGroup');
+```
+
+Edit group name by id:
+
+```php
+$res = $sender->editGroup($newName, $groupId);
+```
+
+## Account
+
+Get account info: 
+
+```php
+$res = $sender->getAccountInfo();
 ```

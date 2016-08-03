@@ -10,21 +10,16 @@ class JSONRequest extends Request
     public static function getAllowedMethods()
     {
         return [
-            'getSource',
             'getContacts',
+            'addContact',
             'requestSource',
+            'createGroup',
+            'getGroups',
+            'editGroup',
+            'removeContact',
             'send',
             'getPhoneInfo',
         ];
-    }
-
-    /**
-     * @param string $source
-     * @return array|null
-     */
-    public function getSource($source)
-    {
-        return $this->exec('requestSource', ['source' => $source]);
     }
 
     /**
