@@ -81,6 +81,64 @@ class JSONRequest extends Request
         return $this->exec('getPhoneInfo', ['phone' => $phone]);
     }
 
+    /**
+     * @param array $contactInfo
+     * @return array|null
+     */
+    public function addContact(array $contactInfo)
+    {
+        return $this->exec('addContact', $contactInfo);
+    }
+
+    /**
+     * @param string|null $groupId
+     * @param string|null $groupName
+     * @return array|null
+     */
+    public function getGroups($groupId = null,  $groupName = null)
+    {
+        return $this->exec(
+            'getGroups',
+            ['id' => $groupId, 'name' => $groupName]
+        );
+    }
+
+    /**
+     * @param string $name
+     * @return array|null
+     */
+    public function createGroup($name)
+    {
+        return $this->editGroup($name, null);
+    }
+
+    /**
+     * @param string $id
+     * @param string $name
+     * @return array|null
+     */
+    public function editGroup($name, $id)
+    {
+        return $this->exec('saveGroup', ['id' => $id, 'name' => $name]);
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getAccountInfo()
+    {
+        return $this->exec('info');
+    }
+
+    /**
+     * @param string $phone
+     * @param string|null $groupId
+     * @return array|null
+     */
+    public function removeContact($phone, $groupId = null)
+    {
+        return $this->exec('removeContact', ['phone' => $phone, 'groupId' => $groupId]);
+    }
 
     /**
      * @param string $action

@@ -75,6 +75,72 @@ class JSONRequestTest extends RequestTest
             ->getContacts();
     }
 
+    /** @test */
+    public function it_adds_contact()
+    {
+        $contactInfo = [
+            'idGroup' => 1,
+            'phone'   => 12345,
+            'f'       => 'Second Name',
+            'i'       => 'First Name',
+            'o'       => 'Middle Name',
+        ];
+        $this->createRequestMock('addContact', $contactInfo)
+            ->addContact($contactInfo);
+    }
+
+    /** @test */
+    public function it_removes_contact()
+    {
+        $phone = 'testPhone';
+        $this->createRequestMock(
+            'removeContact',
+            ['phone' => $phone, 'groupId' => null])
+        ->removeContact($phone);
+    }
+
+    /** @test */
+    public function it_returns_groups_info()
+    {
+        $this->createRequestMock(
+                'getGroups',
+                ['id' => null, 'name' => null]
+            )
+            ->getGroups();
+    }
+
+    /** @test */
+    public function it_create_a_new_group()
+    {
+        $groupName = 'Group1';
+
+        $this->createRequestMock(
+               'saveGroup',
+               ['id' => null, 'name' => $groupName]
+            )
+            ->createGroup($groupName);
+    }
+
+    /** @test */
+    public function it_edits_group_name()
+    {
+        $groupId = 123;
+        $groupName = 'Group1';
+
+        $this->createRequestMock(
+                'saveGroup',
+                ['id' => $groupId, 'name' => $groupName]
+            )
+            ->editGroup($groupName, $groupId);
+    }
+
+    /** @test */
+    public function it_returns_account_info()
+    {
+        $this->createRequestMock('info')
+            ->getAccountInfo();
+    }
+
     /**
      * @param string $action
      * @param array $requestParams
