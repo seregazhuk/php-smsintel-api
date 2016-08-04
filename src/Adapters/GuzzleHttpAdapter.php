@@ -2,25 +2,23 @@
 
 namespace seregazhuk\SmsIntel\Adapters;
 
-use Guzzle\Http\Client;
-use Guzzle\Http\Message\Response;
+use Guzzle\Http\ClientInterface;
 use seregazhuk\SmsIntel\Contracts\HttpInterface;
 
 class GuzzleHttpAdapter implements HttpInterface
 {
-
     /**
-     * @var Client
+     * @var ClientInterface
      */
     protected $client;
 
-    public function __construct()
+    public function __construct(ClientInterface $client)
     {
-        $this->client = new Client();
+        $this->client = $client;
     }
 
     /**
-     * @param $uri
+     * @param string $uri
      * @param array $params
      * @return string
      */
@@ -37,9 +35,12 @@ class GuzzleHttpAdapter implements HttpInterface
      * @param array $body
      * @return string
      */
-    public function post($uri, $body)
+    public function post($uri, $body = [])
     {
-        return $this->client->post($uri, [], $body)->send()->getBody(true);
+        return $this->client
+            ->post($uri, [], $body)
+            ->send()
+            ->getBody(true);
     }
 
     /**

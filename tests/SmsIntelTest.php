@@ -12,4 +12,13 @@ class SmsIntelTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf(Sender::class, SmsIntel::create('login', 'password'));
     }
+
+    /**
+     * @test
+     * @expectedException \seregazhuk\SmsIntel\Exceptions\AuthException
+     */
+    public function it_throws_exception_with_empty_credentials()
+    {
+        SmsIntel::create('', '');
+    }
 }

@@ -56,7 +56,7 @@ abstract class Request implements RequestInterface
      * @param array $params
      * @return array|null
      */
-    public function exec($action, $params = [ ])
+    public function exec($action, $params = [])
     {
         $endPoint = $this->makeEndPoint($action);
         $requestBody = $this->createRequestBody($params);
