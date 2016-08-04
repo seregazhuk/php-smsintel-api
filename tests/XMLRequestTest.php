@@ -43,7 +43,6 @@ class XMLRequestTest extends RequestTest
             ->getReportByNumber($dateFrom, $dateTo, $phone);
     }
 
-
     /** @test */
     public function it_returns_report_by_sms()
     {
@@ -51,6 +50,24 @@ class XMLRequestTest extends RequestTest
         $this
             ->createRequestMock('report', ['smsid' => $smsId])
             ->getReportBySms($smsId);
+
+    }
+
+    /** @test */
+    public function it_checks_coupon()
+    {
+        $code = 'coupond';
+        $markAsUsed = 1;
+        $phone = '79999999999';
+
+        $this->createRequestMock(
+                'checkcode',
+                [
+                    'code'       => $code,
+                    'markAsUsed' => (int)$markAsUsed,
+                    'phone'      => $phone,
+                ]
+            )->checkCoupon($code, $markAsUsed, $phone);
 
     }
 
