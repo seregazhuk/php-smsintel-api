@@ -4,6 +4,7 @@ namespace seregazhuk\SmsIntel\Factories;
 
 use Guzzle\Http\Client;
 use seregazhuk\SmsIntel\Sender;
+use seregazhuk\SmsIntel\Contracts\HttpInterface;
 use seregazhuk\SmsIntel\Exceptions\AuthException;
 use seregazhuk\SmsIntel\Requests\RequestsContainer;
 use seregazhuk\SmsIntel\Adapters\GuzzleHttpAdapter;
@@ -27,6 +28,9 @@ class SmsIntel
         return new Sender($requestsContainer);
     }
 
+    /**
+     * @return HttpInterface
+     */
     protected static function createHttpAdapter()
     {
         return new GuzzleHttpAdapter(new Client());

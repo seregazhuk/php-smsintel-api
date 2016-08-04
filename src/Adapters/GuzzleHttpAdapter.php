@@ -12,6 +12,9 @@ class GuzzleHttpAdapter implements HttpInterface
      */
     protected $client;
 
+    /**
+     * @param ClientInterface $client
+     */
     public function __construct(ClientInterface $client)
     {
         $this->client = $client;
