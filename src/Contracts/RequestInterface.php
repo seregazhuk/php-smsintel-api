@@ -9,5 +9,5 @@ interface RequestInterface
      * @param string $uri
      * @param array $params
      */
-    public function exec($uri, $params);
+    public function exec($uri, $params = []);
 }

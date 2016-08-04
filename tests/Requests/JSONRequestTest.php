@@ -1,6 +1,6 @@
 <?php
 
-namespace seregazhuk\tests;
+namespace seregazhuk\tests\Requests;
 
 use seregazhuk\SmsIntel\Requests\JSONRequest;
 

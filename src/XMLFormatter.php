@@ -31,7 +31,8 @@ class XMLFormatter
      */
     public function toXml()
     {
-        return $this->initDom()
+        return $this
+            ->initDom()
             ->createParamsNodes()
             ->getXml();
     }

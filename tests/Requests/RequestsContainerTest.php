@@ -1,10 +1,10 @@
 <?php
 
-namespace seregazhuk\tests;
+namespace seregazhuk\tests\Requests;
 
 use Mockery;
-use seregazhuk\SmsIntel\Requests\JSONRequest;
 use seregazhuk\SmsIntel\Requests\XMLRequest;
+use seregazhuk\SmsIntel\Requests\JSONRequest;
 use seregazhuk\SmsIntel\Contracts\HttpInterface;
 use seregazhuk\SmsIntel\Requests\RequestsContainer;
 

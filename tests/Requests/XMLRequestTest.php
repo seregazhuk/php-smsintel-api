@@ -1,11 +1,9 @@
 <?php
 
-namespace seregazhuk\tests;
+namespace seregazhuk\tests\Requests;
 
-use Mockery;
 use seregazhuk\SmsIntel\XMLFormatter;
 use seregazhuk\SmsIntel\Requests\XMLRequest;
-use seregazhuk\SmsIntel\Contracts\HttpInterface;
 
 class XMLRequestTest extends RequestTest
 {

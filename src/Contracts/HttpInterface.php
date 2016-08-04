@@ -4,7 +4,6 @@ namespace seregazhuk\SmsIntel\Contracts;
 
 interface HttpInterface
 {
-
     /**
      * @param $uri
      * @param array $params
@@ -13,11 +12,11 @@ interface HttpInterface
     public function get($uri, $params = []);
 
     /**
-     * @param $uri
-     * @param $body
+     * @param string $uri
+     * @param array $body
      * @return array
      */
-    public function post($uri, $body);
+    public function post($uri, $body = []);
 
     /**
      * @param string $url
