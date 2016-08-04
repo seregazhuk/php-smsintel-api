@@ -1,6 +1,6 @@
 {
     "name": "seregazhuk/smsintel-api",
-    "description": "A PHP wrapper for the SmsIntel api. Represents one interface for both XML and JSON API requests.",
+    "description": "A PHP wrapper for the SmsIntel api. Provides one interface for both XML and JSON API requests.",
 	"keywords": [
 		"php",
 		"lib",
