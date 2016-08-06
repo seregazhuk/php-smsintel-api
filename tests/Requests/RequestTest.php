@@ -12,6 +12,11 @@ use seregazhuk\SmsIntel\Contracts\HttpInterface;
 abstract class RequestTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var string
+     */
+    protected $requestClass;
+
+    /**
      * @var HttpInterface|Mock
      */
     protected $httpClient;
