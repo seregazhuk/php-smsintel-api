@@ -21,7 +21,7 @@ class Sender
     }
 
     /**
-     * Proxies all methods to appropriate Request object
+     * Proxies all methods to the appropriate Request object
      *
      * @param string $method
      * @param array $arguments
