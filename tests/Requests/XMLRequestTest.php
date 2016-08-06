@@ -13,8 +13,7 @@ class XMLRequestTest extends RequestTest
     public function it_cancels_message()
     {
         $smsId = 1;
-
-         $this
+        $this
              ->getRequestMock('cancel', ['smsid' => $smsId])
              ->cancel($smsId);
     }

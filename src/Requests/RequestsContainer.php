@@ -9,13 +9,6 @@ use seregazhuk\SmsIntel\Exceptions\WrongRequestException;
 
 class RequestsContainer
 {
-    protected function getRequestsActionsMap()
-    {
-        return [
-            XMLRequest::class  => XMLRequest::getAllowedMethods(),
-            JSONRequest::class => JSONRequest::getAllowedMethods(),
-        ];
-    }
 
     /**
      * @var HttpInterface
@@ -32,6 +25,11 @@ class RequestsContainer
      */
     protected $password;
 
+    /**
+     * @var RequestInterface[]
+     */
+    protected $requests = [];
+
     public function __construct(HttpInterface $http, $login, $password)
     {
         $this->http = $http;
@@ -40,9 +38,15 @@ class RequestsContainer
     }
 
     /**
-     * @var RequestInterface[]
+     * @return array
      */
-    protected $requests = [];
+    protected function getRequestsActionsMap()
+    {
+        return [
+            XMLRequest::class  => XMLRequest::getAllowedMethods(),
+            JSONRequest::class => JSONRequest::getAllowedMethods(),
+        ];
+    }
 
     /**
      * Gets request object by name. If there is no such request
@@ -100,7 +104,6 @@ class RequestsContainer
      * Build RequestInterface object with reflection API.
      *
      * @param string $className
-     *
      *
      * @return object
      */
