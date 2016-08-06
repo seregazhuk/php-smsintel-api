@@ -6,6 +6,8 @@ use seregazhuk\SmsIntel\Requests\JSONRequest;
 
 class JSONRequestTest extends RequestTest
 {
+    protected $requestClass = JSONRequest::class;
+
     /** @test */
     public function it_sends_messages()
     {
@@ -13,7 +15,7 @@ class JSONRequestTest extends RequestTest
         $from = 'phoneFrom';
         $message = 'test message';
 
-        $this->createRequestMock(
+        $this->getRequestMock(
                 'sendSms',
                 [
                     'to'     => [$to],
@@ -31,7 +33,7 @@ class JSONRequestTest extends RequestTest
         $message = 'test message';
         $params = ['param1' => 'value1'];
 
-        $this->createRequestMock(
+        $this->getRequestMock(
             'sendSms',
             [
                 'to'     => [$to],
@@ -46,7 +48,7 @@ class JSONRequestTest extends RequestTest
     public function it_requests_a_source_name()
     {
         $source = 'FromPHP';
-        $this->createRequestMock(
+        $this->getRequestMock(
                 'requestSource',
                 ['source' => $source]
             )
@@ -57,7 +59,7 @@ class JSONRequestTest extends RequestTest
     public function it_returns_phone_info()
     {
         $phone = '123456778';
-        $this->createRequestMock(
+        $this->getRequestMock(
                 'getPhoneInfo',
                 ['phone' => $phone]
             )
@@ -68,7 +70,7 @@ class JSONRequestTest extends RequestTest
     public function it_returns_contacts()
     {
         $this
-            ->createRequestMock(
+            ->getRequestMock(
                 'getContacts',
                 ['idGroup'=>null, 'phone' => null]
             )
@@ -85,7 +87,7 @@ class JSONRequestTest extends RequestTest
             'i'       => 'First Name',
             'o'       => 'Middle Name',
         ];
-        $this->createRequestMock('addContact', $contactInfo)
+        $this->getRequestMock('addContact', $contactInfo)
             ->addContact($contactInfo);
     }
 
@@ -93,7 +95,7 @@ class JSONRequestTest extends RequestTest
     public function it_removes_contact()
     {
         $phone = 'testPhone';
-        $this->createRequestMock(
+        $this->getRequestMock(
             'removeContact',
             ['phone' => $phone, 'groupId' => null])
         ->removeContact($phone);
@@ -102,7 +104,7 @@ class JSONRequestTest extends RequestTest
     /** @test */
     public function it_returns_groups_info()
     {
-        $this->createRequestMock(
+        $this->getRequestMock(
                 'getGroups',
                 ['id' => null, 'name' => null]
             )
@@ -114,7 +116,7 @@ class JSONRequestTest extends RequestTest
     {
         $groupName = 'Group1';
 
-        $this->createRequestMock(
+        $this->getRequestMock(
                'saveGroup',
                ['id' => null, 'name' => $groupName]
             )
@@ -127,7 +129,7 @@ class JSONRequestTest extends RequestTest
         $groupId = 123;
         $groupName = 'Group1';
 
-        $this->createRequestMock(
+        $this->getRequestMock(
                 'saveGroup',
                 ['id' => $groupId, 'name' => $groupName]
             )
@@ -137,31 +139,22 @@ class JSONRequestTest extends RequestTest
     /** @test */
     public function it_returns_account_info()
     {
-        $this->createRequestMock('info')
+        $this->getRequestMock('info')
             ->getAccountInfo();
     }
 
     /**
-     * @param string $action
+     * @param string $requestEndpoint
      * @param array $requestParams
-     * @return JSONRequest
      */
-    protected function createRequestMock($action, $requestParams = [])
+    protected function setHttpClientMockExpectations($requestEndpoint, $requestParams)
     {
-        $httpClient = $this->getHttpMock();
-        $requestParams = $this->appendCredentialsToRequestParams($requestParams);
-
-        $request = (new JSONRequest($httpClient))
-            ->setCredentials('test', 'test');
-
-        $httpClient
+        $this
+            ->httpClient
             ->shouldReceive('post')
             ->with(
-                $request->makeEndPoint($action),
+                $requestEndpoint,
                 $requestParams
-            )
-            ->andReturn('');
-
-        return $request;
+            )->andReturn('');
     }
 }

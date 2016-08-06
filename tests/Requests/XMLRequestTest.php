@@ -7,20 +7,22 @@ use seregazhuk\SmsIntel\Requests\XMLRequest;
 
 class XMLRequestTest extends RequestTest
 {
+    protected $requestClass = XMLRequest::class;
+
     /** @test */
     public function it_cancels_message()
     {
         $smsId = 1;
 
          $this
-             ->createRequestMock('cancel', ['smsid' => $smsId])
+             ->getRequestMock('cancel', ['smsid' => $smsId])
              ->cancel($smsId);
     }
 
     /** @test */
     public function it_returns_balance()
     {
-        $this->createRequestMock('balance')
+        $this->getRequestMock('balance')
             ->getBalance();
     }
 
@@ -32,7 +34,7 @@ class XMLRequestTest extends RequestTest
         $dateTo =  '2016-01-01';
 
         $this
-            ->createRequestMock('reportNumber',
+            ->getRequestMock('reportNumber',
                 [
                     'start' => $dateFrom,
                     'stop' => $dateTo,
@@ -46,7 +48,7 @@ class XMLRequestTest extends RequestTest
     {
         $smsId = 1;
         $this
-            ->createRequestMock('report', ['smsid' => $smsId])
+            ->getRequestMock('report', ['smsid' => $smsId])
             ->getReportBySms($smsId);
 
     }
@@ -58,7 +60,7 @@ class XMLRequestTest extends RequestTest
         $markAsUsed = 1;
         $phone = '79999999999';
 
-        $this->createRequestMock(
+        $this->getRequestMock(
                 'checkcode',
                 [
                     'code'       => $code,
@@ -77,7 +79,7 @@ class XMLRequestTest extends RequestTest
         $dateTo =  '2016-01-01';
 
         $this
-            ->createRequestMock('report',
+            ->getRequestMock('report',
                 [
                     'start' => $dateFrom,
                     'stop' => $dateTo,
@@ -87,27 +89,18 @@ class XMLRequestTest extends RequestTest
     }
 
     /**
-     * @param string $action
+     * @param string $requestEndpoint
      * @param array $requestParams
-     * @return XMLRequest
      */
-    protected function createRequestMock($action, $requestParams = [])
+    protected function setHttpClientMockExpectations($requestEndpoint, $requestParams)
     {
-        $httpClient = $this->getHttpMock();
-        $requestParams = $this->appendCredentialsToRequestParams($requestParams);
-
-        $request = (new XMLRequest($httpClient))
-            ->setCredentials('test', 'test');
-
-        $httpClient
+        $this->httpClient
             ->shouldReceive('post')
             ->with(
-                $request->makeEndPoint($action),
+                $requestEndpoint,
                 (new XMLFormatter($requestParams))->toXml()
             )
             ->andReturn('<?xml version=\'1.0\' encoding=\'UTF-8\'?><data></data>');
-
-        return $request;
 
     }
 }

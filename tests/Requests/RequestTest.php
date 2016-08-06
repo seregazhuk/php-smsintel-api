@@ -3,24 +3,50 @@
 namespace seregazhuk\tests\Requests;
 
 use Mockery;
+use Mockery\Mock;
 use seregazhuk\SmsIntel\Requests\Request;
+use seregazhuk\SmsIntel\Requests\XMLRequest;
+use seregazhuk\SmsIntel\Requests\JSONRequest;
 use seregazhuk\SmsIntel\Contracts\HttpInterface;
 
 abstract class RequestTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var HttpInterface|Mock
+     */
+    protected $httpClient;
+
+    /**
+     * Creates Request object mock and sets expectations for the httpClient mock.
      * @param string $action
      * @param array $requestParams
-     * @return Request
+     * @return Request|XMLRequest|JSONRequest
      */
-    abstract protected function createRequestMock($action, $requestParams = []);
+    protected function getRequestMock($action, $requestParams = []) {
+        $this->createHttpClientMock();
+        $requestParams = $this->appendCredentialsToRequestParams($requestParams);
 
-    protected function getHttpMock()
-    {
-        return Mockery::mock(HttpInterface::class);
+        $request = $this->createRequestObject()
+            ->setCredentials('test', 'test');
+
+        $requestEndpoint = $request->makeEndPoint($action);
+        $this->setHttpClientMockExpectations($requestEndpoint, $requestParams);
+
+        return $request;
     }
 
     /**
+     * Should return Request object.
+     * @return Request
+     */
+    protected function createRequestObject() {
+        $requestClass = $this->getRequestClass();
+        return new $requestClass($this->httpClient);
+    }
+
+    /**
+     * Adds login and password fields to the request params
+     *
      * @param array $requestParams
      * @return array
      */
@@ -35,5 +61,24 @@ abstract class RequestTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
         Mockery::close();
+    }
+
+    /**
+     * @param string $requestEndpoint
+     * @param array $requestParams
+     */
+    abstract protected function setHttpClientMockExpectations($requestEndpoint, $requestParams);
+
+    /**
+     * @return string
+     */
+    protected function getRequestClass()
+    {
+        return property_exists($this, 'requestClass') ? $this->requestClass : '';
+    }
+
+    protected function createHttpClientMock()
+    {
+        $this->httpClient = Mockery::mock(HttpInterface::class);
     }
 }
