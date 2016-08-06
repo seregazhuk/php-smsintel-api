@@ -26,7 +26,7 @@ class JSONRequestTest extends RequestTest
     }
 
     /** @test */
-    public function it_appends_additional_params_when_sending_messages()
+    public function it_accepts_additional_params_when_sending_messages()
     {
         $to = 'phoneTo';
         $from = 'phoneFrom';
@@ -34,14 +34,15 @@ class JSONRequestTest extends RequestTest
         $params = ['param1' => 'value1'];
 
         $this->getRequestMock(
-            'sendSms',
-            [
-                'to'     => [$to],
-                'source' => $from,
-                'txt'    => $message,
-                'param1' => 'value1'
-            ]
-        )->send($to, $from, $message, $params);
+                'sendSms',
+                [
+                    'to'     => [$to],
+                    'source' => $from,
+                    'txt'    => $message,
+                    'param1' => 'value1'
+                ]
+            )
+            ->send($to, $from, $message, $params);
     }
 
     /** @test */
@@ -96,9 +97,10 @@ class JSONRequestTest extends RequestTest
     {
         $phone = 'testPhone';
         $this->getRequestMock(
-            'removeContact',
-            ['phone' => $phone, 'groupId' => null])
-        ->removeContact($phone);
+                'removeContact',
+                ['phone' => $phone, 'groupId' => null]
+            )
+            ->removeContact($phone);
     }
 
     /** @test */
