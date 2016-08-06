@@ -30,7 +30,11 @@ class GuzzleHttpAdapter implements HttpInterface
         if (!empty($params)) {
             $uri .= '?' . http_build_query($params);
         }
-        return $this->client->get($uri)->send()->getBody(true);
+        return $this
+            ->client
+            ->get($uri)
+            ->send()
+            ->getBody(true);
     }
 
     /**
@@ -40,7 +44,8 @@ class GuzzleHttpAdapter implements HttpInterface
      */
     public function post($uri, $body = [])
     {
-        return $this->client
+        return $this
+            ->client
             ->post($uri, [], $body)
             ->send()
             ->getBody(true);
