@@ -5,22 +5,19 @@ namespace seregazhuk\SmsIntel\Requests;
 class JSONRequest extends Request
 {
     /**
-     * @return array
+     * @var array
      */
-    public static function getAllowedMethods()
-    {
-        return [
-            'send',
-            'getGroups',
-            'editGroup',
-            'addContact',
-            'getContacts',
-            'createGroup',
-            'getPhoneInfo',
-            'requestSource',
-            'removeContact',
-        ];
-    }
+    public static $allowedMethods = [
+        'send',
+        'getGroups',
+        'editGroup',
+        'addContact',
+        'getContacts',
+        'createGroup',
+        'getPhoneInfo',
+        'requestSource',
+        'removeContact',
+    ];
 
     /**
      * @param string|array $to
