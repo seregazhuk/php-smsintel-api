@@ -6,17 +6,14 @@ use seregazhuk\SmsIntel\XMLFormatter;
 
 class XMLRequest extends Request
 {
-    public static function getAllowedMethods()
-    {
-        return [
-            'cancel',
-            'getBalance',
-            'checkCoupon',
-            'getReportBySms',
-            'getReportBySource',
-            'getReportByNumber',
-        ];
-    }
+    public static $allowedMethods = [
+        'cancel',
+        'getBalance',
+        'checkCoupon',
+        'getReportBySms',
+        'getReportBySource',
+        'getReportByNumber',
+    ];
 
     /**
      * @param string $smsId

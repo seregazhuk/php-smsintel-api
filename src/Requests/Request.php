@@ -7,6 +7,7 @@ use seregazhuk\SmsIntel\Contracts\RequestInterface;
 
 abstract class Request implements RequestInterface
 {
+    static public $allowedMethod = [];
 
     /**
      * @var HttpInterface
@@ -28,13 +29,6 @@ abstract class Request implements RequestInterface
         $this->client = $http;
     }
 
-    /**
-     * @return array
-     */
-    public static function getAllowedMethods()
-    {
-        return [];
-    }
 
     /**
      * @param string $login

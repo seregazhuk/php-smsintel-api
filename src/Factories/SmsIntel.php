@@ -15,6 +15,7 @@ class SmsIntel
      * @param $login
      * @param $password
      * @return Sender
+     * @throws AuthException
      */
     public static function create($login, $password)
     {

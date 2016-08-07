@@ -43,8 +43,8 @@ class RequestsContainer
     protected function getRequestsActionsMap()
     {
         return [
-            XMLRequest::class  => XMLRequest::getAllowedMethods(),
-            JSONRequest::class => JSONRequest::getAllowedMethods(),
+            XMLRequest::class  => XMLRequest::$allowedMethods,
+            JSONRequest::class => JSONRequest::$allowedMethods,
         ];
     }
 
