@@ -47,4 +47,7 @@ class SmsIntel
             throw new AuthException('You must provide login and password to send messages!');
         }
     }
+
+    private function __construct(){}
+    private function __clone(){}
 }
