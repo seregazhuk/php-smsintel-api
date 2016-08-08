@@ -1,8 +1,8 @@
 <?php
 
-namespace seregazhuk\SmsIntel\Requests;
+namespace seregazhuk\SmsIntel\Api\Requests;
 
-use seregazhuk\SmsIntel\XMLFormatter;
+use seregazhuk\SmsIntel\Formatters\XMLFormatter;
 
 class XMLRequest extends Request
 {

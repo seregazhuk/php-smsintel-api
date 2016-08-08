@@ -1,9 +1,9 @@
 <?php
 
-namespace seregazhuk\SmsIntel;
+namespace seregazhuk\SmsIntel\Api;
 
 use seregazhuk\SmsIntel\Contracts\RequestInterface;
-use seregazhuk\SmsIntel\Requests\RequestsContainer;
+use seregazhuk\SmsIntel\Api\Requests\RequestsContainer;
 
 class Sender
 {

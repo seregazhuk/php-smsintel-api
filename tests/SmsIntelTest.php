@@ -2,7 +2,7 @@
 
 namespace seregazhuk\tests;
 
-use seregazhuk\SmsIntel\Sender;
+use seregazhuk\SmsIntel\Api\Sender;
 use seregazhuk\SmsIntel\Factories\SmsIntel;
 
 class SmsIntelTest extends \PHPUnit_Framework_TestCase

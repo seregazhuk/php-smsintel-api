@@ -1,6 +1,6 @@
 <?php
 
-namespace seregazhuk\SmsIntel\Requests;
+namespace seregazhuk\SmsIntel\Api\Requests;
 
 class JSONRequest extends Request
 {
