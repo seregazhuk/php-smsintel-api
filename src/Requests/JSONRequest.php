@@ -87,7 +87,7 @@ class JSONRequest extends Request
      * @param string|null $groupName
      * @return array|null
      */
-    public function getGroups($groupId = null,  $groupName = null)
+    public function getGroups($groupId = null, $groupName = null)
     {
         return $this->exec(
             'getGroups',
@@ -105,13 +105,13 @@ class JSONRequest extends Request
     }
 
     /**
-     * @param string $id
+     * @param string $groupId
      * @param string $name
      * @return array|null
      */
-    public function editGroup($name, $id)
+    public function editGroup($name, $groupId)
     {
-        return $this->exec('saveGroup', ['id' => $id, 'name' => $name]);
+        return $this->exec('saveGroup', ['id' => $groupId, 'name' => $name]);
     }
 
     /**
