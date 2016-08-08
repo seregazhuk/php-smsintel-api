@@ -3,9 +3,9 @@
 namespace seregazhuk\tests\Requests;
 
 use Mockery;
+use seregazhuk\SmsIntel\Contracts\HttpInterface;
 use seregazhuk\SmsIntel\Api\Requests\XMLRequest;
 use seregazhuk\SmsIntel\Api\Requests\JSONRequest;
-use seregazhuk\SmsIntel\Contracts\HttpInterface;
 use seregazhuk\SmsIntel\Api\Requests\RequestsContainer;
 
 class RequestsContainerTest extends \PHPUnit_Framework_TestCase

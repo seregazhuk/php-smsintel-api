@@ -6,8 +6,8 @@ use Guzzle\Http\Client;
 use seregazhuk\SmsIntel\Api\Sender;
 use seregazhuk\SmsIntel\Contracts\HttpInterface;
 use seregazhuk\SmsIntel\Exceptions\AuthException;
-use seregazhuk\SmsIntel\Api\Requests\RequestsContainer;
 use seregazhuk\SmsIntel\Adapters\GuzzleHttpAdapter;
+use seregazhuk\SmsIntel\Api\Requests\RequestsContainer;
 
 class SmsIntel
 {
