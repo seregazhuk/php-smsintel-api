@@ -1,6 +1,6 @@
 <?php
 
-namespace seregazhuk\SmsIntel\Factories;
+namespace seregazhuk\SmsIntel;
 
 use Guzzle\Http\Client;
 use seregazhuk\SmsIntel\Api\Sender;
