@@ -75,7 +75,7 @@ class XMLRequest extends Request
      * @param null|string $number
      * @return array|null
      */
-    public function getReportByNumber($dateFrom , $dateTo, $number = null)
+    public function getReportByNumber($dateFrom, $dateTo, $number = null)
     {
         return $this->exec('reportNumber',
             [
