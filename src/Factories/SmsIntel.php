@@ -3,11 +3,11 @@
 namespace seregazhuk\SmsIntel\Factories;
 
 use Guzzle\Http\Client;
-use seregazhuk\SmsIntel\Sender;
+use seregazhuk\SmsIntel\Api\Sender;
 use seregazhuk\SmsIntel\Contracts\HttpInterface;
 use seregazhuk\SmsIntel\Exceptions\AuthException;
-use seregazhuk\SmsIntel\Requests\RequestsContainer;
 use seregazhuk\SmsIntel\Adapters\GuzzleHttpAdapter;
+use seregazhuk\SmsIntel\Api\Requests\RequestsContainer;
 
 class SmsIntel
 {

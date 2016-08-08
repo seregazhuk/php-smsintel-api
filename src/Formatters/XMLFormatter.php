@@ -1,6 +1,6 @@
 <?php
 
-namespace seregazhuk\SmsIntel;
+namespace seregazhuk\SmsIntel\Formatters;
 
 use DOMElement;
 use DOMDocument;

@@ -2,7 +2,7 @@
 
 namespace seregazhuk\tests;
 
-use seregazhuk\SmsIntel\XMLFormatter;
+use seregazhuk\SmsIntel\Formatters\XMLFormatter;
 
 class XMLFormatterTest extends \PHPUnit_Framework_TestCase
 {

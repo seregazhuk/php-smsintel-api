@@ -4,10 +4,10 @@ namespace seregazhuk\tests\Requests;
 
 use Mockery;
 use Mockery\Mock;
-use seregazhuk\SmsIntel\Requests\Request;
-use seregazhuk\SmsIntel\Requests\XMLRequest;
-use seregazhuk\SmsIntel\Requests\JSONRequest;
+use seregazhuk\SmsIntel\Api\Requests\Request;
 use seregazhuk\SmsIntel\Contracts\HttpInterface;
+use seregazhuk\SmsIntel\Api\Requests\XMLRequest;
+use seregazhuk\SmsIntel\Api\Requests\JSONRequest;
 
 abstract class RequestTest extends \PHPUnit_Framework_TestCase
 {

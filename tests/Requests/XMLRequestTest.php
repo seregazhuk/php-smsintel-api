@@ -2,8 +2,8 @@
 
 namespace seregazhuk\tests\Requests;
 
-use seregazhuk\SmsIntel\XMLFormatter;
-use seregazhuk\SmsIntel\Requests\XMLRequest;
+use seregazhuk\SmsIntel\Formatters\XMLFormatter;
+use seregazhuk\SmsIntel\Api\Requests\XMLRequest;
 
 class XMLRequestTest extends RequestTest
 {

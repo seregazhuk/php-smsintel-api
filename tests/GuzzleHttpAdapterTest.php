@@ -2,10 +2,10 @@
 
 namespace seregazhuk\tests;
 
-use Guzzle\Http\Message\RequestInterface;
-use Guzzle\Http\Message\Response;
 use Mockery;
 use Guzzle\Http\ClientInterface;
+use Guzzle\Http\Message\Response;
+use Guzzle\Http\Message\RequestInterface;
 use seregazhuk\SmsIntel\Adapters\GuzzleHttpAdapter;
 
 class GuzzleHttpAdapterTest extends \PHPUnit_Framework_TestCase

@@ -2,7 +2,7 @@
 
 namespace seregazhuk\tests\Requests;
 
-use seregazhuk\SmsIntel\Requests\JSONRequest;
+use seregazhuk\SmsIntel\Api\Requests\JSONRequest;
 
 class JSONRequestTest extends RequestTest
 {
