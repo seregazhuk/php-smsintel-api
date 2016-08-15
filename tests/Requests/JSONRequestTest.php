@@ -146,15 +146,18 @@ class JSONRequestTest extends RequestTest
     }
 
     /**
+     * @param string $requestEndpoint
      * @param array $requestParams
      */
-    protected function setHttpClientMockExpectations($requestParams)
+    protected function setHttpClientMockExpectations($requestEndpoint, $requestParams)
     {
         $this
             ->httpClient
             ->shouldReceive('post')
             ->with(
-                \Mockery::type('string'),
+                \Mockery::on(function($endpoint) use ($requestEndpoint) {
+                    return strpos($endpoint, $requestEndpoint) !== false;
+                }),
                 $requestParams
             )->andReturn('');
     }
