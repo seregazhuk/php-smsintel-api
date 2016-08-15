@@ -4,7 +4,6 @@ namespace seregazhuk\SmsIntel\Api\Requests;
 
 use ReflectionClass;
 use seregazhuk\SmsIntel\Contracts\HttpInterface;
-use seregazhuk\SmsIntel\Contracts\RequestInterface;
 use seregazhuk\SmsIntel\Exceptions\WrongRequestException;
 
 class RequestsContainer
@@ -26,7 +25,7 @@ class RequestsContainer
     protected $password;
 
     /**
-     * @var RequestInterface[]
+     * @var Request[]
      */
     protected $requests = [];
 

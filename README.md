@@ -38,7 +38,7 @@ composer require "seregazhuk/smsintel-api:*"
 // You may need to amend this path to locate composer's autoloader
 require('vendor/autoload.php'); 
 
-use seregazhuk\SmsIntel\Factories\SmsIntel;
+use seregazhuk\SmsIntel\SmsIntel;
 
 $sender = SmsIntel::create('login', 'password');
 

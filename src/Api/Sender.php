@@ -2,7 +2,7 @@
 
 namespace seregazhuk\SmsIntel\Api;
 
-use seregazhuk\SmsIntel\Contracts\RequestInterface;
+use seregazhuk\SmsIntel\Api\Requests\Request;
 use seregazhuk\SmsIntel\Api\Requests\RequestsContainer;
 
 class Sender
@@ -37,12 +37,12 @@ class Sender
     }
 
     /**
-     * @param RequestInterface $request
+     * @param Request $request
      * @param string $method
      * @param array $arguments
      * @return mixed
      */
-    protected function callRequestMethod(RequestInterface $request, $method, array $arguments)
+    protected function callRequestMethod(Request $request, $method, array $arguments)
     {
         if(empty($arguments)) return $request->{$method}();
 

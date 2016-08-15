@@ -100,7 +100,7 @@ class XMLRequest extends Request
      * @param string $action
      * @return string
      */
-    public function makeEndPoint($action)
+    protected function makeEndPoint($action)
     {
         return 'https://lcab.smsintel.ru/API/XML/' . $action . '.php';
     }
