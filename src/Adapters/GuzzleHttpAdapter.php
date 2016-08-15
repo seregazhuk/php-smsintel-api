@@ -30,6 +30,7 @@ class GuzzleHttpAdapter implements HttpInterface
         if (!empty($params)) {
             $uri .= '?' . http_build_query($params);
         }
+
         return $this
             ->client
             ->get($uri)
