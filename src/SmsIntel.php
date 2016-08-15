@@ -5,6 +5,8 @@ namespace seregazhuk\SmsIntel;
 use Guzzle\Http\Client;
 use seregazhuk\SmsIntel\Api\Sender;
 use seregazhuk\SmsIntel\Contracts\HttpInterface;
+use seregazhuk\SmsIntel\Api\Requests\XMLRequest;
+use seregazhuk\SmsIntel\Api\Requests\JSONRequest;
 use seregazhuk\SmsIntel\Exceptions\AuthException;
 use seregazhuk\SmsIntel\Adapters\GuzzleHttpAdapter;
 use seregazhuk\SmsIntel\Api\Requests\RequestsContainer;
@@ -14,7 +16,7 @@ class SmsIntel
     /**
      * @param $login
      * @param $password
-     * @return Sender
+     * @return Sender|JSONRequest|XMLRequest
      * @throws AuthException
      */
     public static function create($login, $password)
