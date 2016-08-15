@@ -34,8 +34,7 @@ abstract class RequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->createRequestObject()
             ->setCredentials('test', 'test');
 
-        $requestEndpoint = $request->makeEndPoint($action);
-        $this->setHttpClientMockExpectations($requestEndpoint, $requestParams);
+        $this->setHttpClientMockExpectations($requestParams);
 
         return $request;
     }
@@ -46,6 +45,7 @@ abstract class RequestTest extends \PHPUnit_Framework_TestCase
      */
     protected function createRequestObject() {
         $requestClass = $this->getRequestClass();
+
         return new $requestClass($this->httpClient);
     }
 
@@ -69,10 +69,9 @@ abstract class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param string $requestEndpoint
      * @param array $requestParams
      */
-    abstract protected function setHttpClientMockExpectations($requestEndpoint, $requestParams);
+    abstract protected function setHttpClientMockExpectations($requestParams);
 
     /**
      * @return string

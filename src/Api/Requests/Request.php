@@ -3,10 +3,12 @@
 namespace seregazhuk\SmsIntel\Api\Requests;
 
 use seregazhuk\SmsIntel\Contracts\HttpInterface;
-use seregazhuk\SmsIntel\Contracts\RequestInterface;
 
-abstract class Request implements RequestInterface
+abstract class Request
 {
+    /**
+     * @var array
+     */
     static public $allowedMethod = [];
 
     /**
@@ -92,5 +94,5 @@ abstract class Request implements RequestInterface
      * @param string $action
      * @return string
      */
-    abstract public function makeEndPoint($action);
+    abstract protected function makeEndPoint($action);
 }
