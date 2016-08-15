@@ -7,6 +7,9 @@ use seregazhuk\SmsIntel\Contracts\RequestInterface;
 
 abstract class Request implements RequestInterface
 {
+    /**
+     * @var array
+     */
     static public $allowedMethod = [];
 
     /**

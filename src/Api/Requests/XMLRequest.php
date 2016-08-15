@@ -6,6 +6,9 @@ use seregazhuk\SmsIntel\Formatters\XMLFormatter;
 
 class XMLRequest extends Request
 {
+    /**
+     * @var array
+     */
     public static $allowedMethods = [
         'cancel',
         'getBalance',
