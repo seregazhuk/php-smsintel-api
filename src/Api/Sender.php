@@ -37,6 +37,9 @@ class Sender
     }
 
     /**
+     * Call a method of the request object according to the number of the
+     * passed arguments
+     *
      * @param Request $request
      * @param string $method
      * @param array $arguments
