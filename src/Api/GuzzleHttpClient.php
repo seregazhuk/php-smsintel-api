@@ -1,11 +1,11 @@
 <?php
 
-namespace seregazhuk\SmsIntel\Adapters;
+namespace seregazhuk\SmsIntel\Api;
 
 use Guzzle\Http\ClientInterface;
-use seregazhuk\SmsIntel\Contracts\HttpInterface;
+use seregazhuk\SmsIntel\Contracts\HttpClient;
 
-class GuzzleHttpAdapter implements HttpInterface
+class GuzzleHttpClient implements HttpClient
 {
     /**
      * @var ClientInterface

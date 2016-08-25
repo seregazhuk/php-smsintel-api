@@ -2,7 +2,7 @@
 
 namespace seregazhuk\SmsIntel\Api\Requests;
 
-use seregazhuk\SmsIntel\Contracts\HttpInterface;
+use seregazhuk\SmsIntel\Contracts\HttpClient;
 
 abstract class Request
 {
@@ -12,7 +12,7 @@ abstract class Request
     static public $allowedMethod = [];
 
     /**
-     * @var HttpInterface
+     * @var HttpClient
      */
     protected $client;
 
@@ -26,7 +26,7 @@ abstract class Request
      */
     protected $password;
 
-    public function __construct(HttpInterface $http)
+    public function __construct(HttpClient $http)
     {
         $this->client = $http;
     }

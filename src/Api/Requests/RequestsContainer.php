@@ -3,14 +3,14 @@
 namespace seregazhuk\SmsIntel\Api\Requests;
 
 use ReflectionClass;
-use seregazhuk\SmsIntel\Contracts\HttpInterface;
-use seregazhuk\SmsIntel\Exceptions\WrongRequestException;
+use seregazhuk\SmsIntel\Contracts\HttpClient;
+use seregazhuk\SmsIntel\Exceptions\WrongRequest;
 
 class RequestsContainer
 {
 
     /**
-     * @var HttpInterface
+     * @var HttpClient
      */
     protected $http;
 
@@ -29,7 +29,7 @@ class RequestsContainer
      */
     protected $requests = [];
 
-    public function __construct(HttpInterface $http, $login, $password)
+    public function __construct(HttpClient $http, $login, $password)
     {
         $this->http = $http;
         $this->login = $login;
@@ -54,7 +54,7 @@ class RequestsContainer
      *
      * @param string $requestClass
      *
-     * @throws WrongRequestException
+     * @throws WrongRequest
      *
      * @return RequestInterface
      */
@@ -70,7 +70,7 @@ class RequestsContainer
     /**
      * @param $action
      * @return string
-     * @throws WrongRequestException
+     * @throws WrongRequest
      */
     public function resolveRequestByAction($action)
     {
@@ -80,7 +80,7 @@ class RequestsContainer
             }
         }
 
-        throw new WrongRequestException("Action $action doesn't exist!");
+        throw new WrongRequest("Action $action doesn't exist!");
     }
 
     /**
@@ -89,12 +89,12 @@ class RequestsContainer
      *
      * @param string $requestClass
      *
-     * @throws WrongRequestException
+     * @throws WrongRequest
      */
     protected function addRequest($requestClass)
     {
         if (!class_exists($requestClass)) {
-            throw new WrongRequestException("Request $requestClass not found.");
+            throw new WrongRequest("Request $requestClass not found.");
         }
         $this->requests[$requestClass] = $this->buildRequest($requestClass);
     }
