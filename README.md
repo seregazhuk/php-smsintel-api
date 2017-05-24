@@ -1,7 +1,7 @@
 # SmsIntel PHP Api
 
 <p align="center">
-    <img src="logo.png" alt="Pinterest PHP Bot">
+    <img src="logo.png" alt="SmsIntel PHP Api">
 </p>
 
 <p align="center">
