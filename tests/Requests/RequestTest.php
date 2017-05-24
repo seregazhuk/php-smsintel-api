@@ -4,10 +4,10 @@ namespace seregazhuk\tests\Requests;
 
 use Mockery;
 use Mockery\Mock;
-use seregazhuk\SmsIntel\Requests\Request;
-use seregazhuk\SmsIntel\Requests\XMLRequest;
-use seregazhuk\SmsIntel\Requests\JSONRequest;
-use seregazhuk\SmsIntel\Contracts\HttpInterface;
+use seregazhuk\SmsIntel\Api\Requests\Request;
+use seregazhuk\SmsIntel\Contracts\HttpClient;
+use seregazhuk\SmsIntel\Api\Requests\XMLRequest;
+use seregazhuk\SmsIntel\Api\Requests\JSONRequest;
 
 abstract class RequestTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,7 +17,7 @@ abstract class RequestTest extends \PHPUnit_Framework_TestCase
     protected $requestClass;
 
     /**
-     * @var HttpInterface|Mock
+     * @var HttpClient|Mock
      */
     protected $httpClient;
 
@@ -34,8 +34,7 @@ abstract class RequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->createRequestObject()
             ->setCredentials('test', 'test');
 
-        $requestEndpoint = $request->makeEndPoint($action);
-        $this->setHttpClientMockExpectations($requestEndpoint, $requestParams);
+        $this->setHttpClientMockExpectations($action, $requestParams);
 
         return $request;
     }
@@ -46,6 +45,7 @@ abstract class RequestTest extends \PHPUnit_Framework_TestCase
      */
     protected function createRequestObject() {
         $requestClass = $this->getRequestClass();
+
         return new $requestClass($this->httpClient);
     }
 
@@ -71,6 +71,7 @@ abstract class RequestTest extends \PHPUnit_Framework_TestCase
     /**
      * @param string $requestEndpoint
      * @param array $requestParams
+     * @return
      */
     abstract protected function setHttpClientMockExpectations($requestEndpoint, $requestParams);
 
@@ -84,6 +85,6 @@ abstract class RequestTest extends \PHPUnit_Framework_TestCase
 
     protected function createHttpClientMock()
     {
-        $this->httpClient = Mockery::mock(HttpInterface::class);
+        $this->httpClient = Mockery::mock(HttpClient::class);
     }
 }

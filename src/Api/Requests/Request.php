@@ -1,15 +1,18 @@
 <?php
 
-namespace seregazhuk\SmsIntel\Requests;
+namespace seregazhuk\SmsIntel\Api\Requests;
 
-use seregazhuk\SmsIntel\Contracts\HttpInterface;
-use seregazhuk\SmsIntel\Contracts\RequestInterface;
+use seregazhuk\SmsIntel\Contracts\HttpClient;
 
-abstract class Request implements RequestInterface
+abstract class Request
 {
+    /**
+     * @var array
+     */
+    static public $allowedMethod = [];
 
     /**
-     * @var HttpInterface
+     * @var HttpClient
      */
     protected $client;
 
@@ -23,18 +26,11 @@ abstract class Request implements RequestInterface
      */
     protected $password;
 
-    public function __construct(HttpInterface $http)
+    public function __construct(HttpClient $http)
     {
         $this->client = $http;
     }
 
-    /**
-     * @return array
-     */
-    public static function getAllowedMethods()
-    {
-        return [];
-    }
 
     /**
      * @param string $login
@@ -98,5 +94,5 @@ abstract class Request implements RequestInterface
      * @param string $action
      * @return string
      */
-    abstract public function makeEndPoint($action);
+    abstract protected function makeEndPoint($action);
 }

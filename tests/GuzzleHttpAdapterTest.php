@@ -2,11 +2,11 @@
 
 namespace seregazhuk\tests;
 
+use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Http\Message\Response;
 use Mockery;
-use Guzzle\Http\ClientInterface;
-use seregazhuk\SmsIntel\Adapters\GuzzleHttpAdapter;
+use seregazhuk\SmsIntel\Api\GuzzleHttpClient;
 
 class GuzzleHttpAdapterTest extends \PHPUnit_Framework_TestCase
 {
@@ -21,7 +21,7 @@ class GuzzleHttpAdapterTest extends \PHPUnit_Framework_TestCase
             ->with($baseUrl)
             ->getMock();
 
-        $guzzleAdapter = new GuzzleHttpAdapter($http);
+        $guzzleAdapter = new GuzzleHttpClient($http);
         $guzzleAdapter->setBaseUrl($baseUrl);
     }
 
@@ -39,7 +39,7 @@ class GuzzleHttpAdapterTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
 
-        $guzzleAdapter = new GuzzleHttpAdapter($http);
+        $guzzleAdapter = new GuzzleHttpClient($http);
         $guzzleAdapter->get($url, $queryParams);
     }
 
@@ -55,7 +55,7 @@ class GuzzleHttpAdapterTest extends \PHPUnit_Framework_TestCase
             ->andReturn($this->createRequestMock())
             ->getMock();
 
-        $guzzleAdapter = new GuzzleHttpAdapter($http);
+        $guzzleAdapter = new GuzzleHttpClient($http);
         $guzzleAdapter->post($url, $params);
     }
 

@@ -2,8 +2,9 @@
 
 namespace seregazhuk\tests\Requests;
 
-use seregazhuk\SmsIntel\XMLFormatter;
-use seregazhuk\SmsIntel\Requests\XMLRequest;
+use Mockery;
+use seregazhuk\SmsIntel\Formatters\XMLFormatter;
+use seregazhuk\SmsIntel\Api\Requests\XMLRequest;
 
 class XMLRequestTest extends RequestTest
 {
@@ -96,7 +97,9 @@ class XMLRequestTest extends RequestTest
         $this->httpClient
             ->shouldReceive('post')
             ->with(
-                $requestEndpoint,
+                Mockery::on(function($endpoint) use ($requestEndpoint) {
+                    return strpos($endpoint, $requestEndpoint) !== false;
+                }),
                 (new XMLFormatter($requestParams))->toXml()
             )
             ->andReturn('<?xml version=\'1.0\' encoding=\'UTF-8\'?><data></data>');

@@ -2,7 +2,7 @@
 
 namespace seregazhuk\tests\Requests;
 
-use seregazhuk\SmsIntel\Requests\JSONRequest;
+use seregazhuk\SmsIntel\Api\Requests\JSONRequest;
 
 class JSONRequestTest extends RequestTest
 {
@@ -155,7 +155,9 @@ class JSONRequestTest extends RequestTest
             ->httpClient
             ->shouldReceive('post')
             ->with(
-                $requestEndpoint,
+                \Mockery::on(function($endpoint) use ($requestEndpoint) {
+                    return strpos($endpoint, $requestEndpoint) !== false;
+                }),
                 $requestParams
             )->andReturn('');
     }

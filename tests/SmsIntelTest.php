@@ -2,8 +2,8 @@
 
 namespace seregazhuk\tests;
 
-use seregazhuk\SmsIntel\Sender;
-use seregazhuk\SmsIntel\Factories\SmsIntel;
+use seregazhuk\SmsIntel\SmsIntel;
+use seregazhuk\SmsIntel\Api\Sender;
 
 class SmsIntelTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,7 +15,7 @@ class SmsIntelTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \seregazhuk\SmsIntel\Exceptions\AuthException
+     * @expectedException \seregazhuk\SmsIntel\Exceptions\AuthenticationFailed
      */
     public function it_throws_exception_with_empty_credentials()
     {

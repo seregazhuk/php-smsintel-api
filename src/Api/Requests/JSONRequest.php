@@ -1,26 +1,23 @@
 <?php
 
-namespace seregazhuk\SmsIntel\Requests;
+namespace seregazhuk\SmsIntel\Api\Requests;
 
 class JSONRequest extends Request
 {
     /**
-     * @return array
+     * @var array
      */
-    public static function getAllowedMethods()
-    {
-        return [
-            'send',
-            'getGroups',
-            'editGroup',
-            'addContact',
-            'getContacts',
-            'createGroup',
-            'getPhoneInfo',
-            'requestSource',
-            'removeContact',
-        ];
-    }
+    public static $allowedMethods = [
+        'send',
+        'getGroups',
+        'editGroup',
+        'addContact',
+        'getContacts',
+        'createGroup',
+        'getPhoneInfo',
+        'requestSource',
+        'removeContact',
+    ];
 
     /**
      * @param string|array $to
@@ -90,7 +87,7 @@ class JSONRequest extends Request
      * @param string|null $groupName
      * @return array|null
      */
-    public function getGroups($groupId = null,  $groupName = null)
+    public function getGroups($groupId = null, $groupName = null)
     {
         return $this->exec(
             'getGroups',
@@ -108,13 +105,13 @@ class JSONRequest extends Request
     }
 
     /**
-     * @param string $id
+     * @param string $groupId
      * @param string $name
      * @return array|null
      */
-    public function editGroup($name, $id)
+    public function editGroup($name, $groupId)
     {
-        return $this->exec('saveGroup', ['id' => $id, 'name' => $name]);
+        return $this->exec('saveGroup', ['id' => $groupId, 'name' => $name]);
     }
 
     /**
@@ -139,7 +136,7 @@ class JSONRequest extends Request
      * @param string $action
      * @return string
      */
-    public function makeEndPoint($action)
+    protected function makeEndPoint($action)
     {
         return 'https://lcab.smsintel.ru/lcabApi/' . $action . '.php';
     }

@@ -1,22 +1,22 @@
 <?php
 
-namespace seregazhuk\SmsIntel\Requests;
+namespace seregazhuk\SmsIntel\Api\Requests;
 
-use seregazhuk\SmsIntel\XMLFormatter;
+use seregazhuk\SmsIntel\Formatters\XMLFormatter;
 
 class XMLRequest extends Request
 {
-    public static function getAllowedMethods()
-    {
-        return [
-            'cancel',
-            'getBalance',
-            'checkCoupon',
-            'getReportBySms',
-            'getReportBySource',
-            'getReportByNumber',
-        ];
-    }
+    /**
+     * @var array
+     */
+    public static $allowedMethods = [
+        'cancel',
+        'getBalance',
+        'checkCoupon',
+        'getReportBySms',
+        'getReportBySource',
+        'getReportByNumber',
+    ];
 
     /**
      * @param string $smsId
@@ -78,7 +78,7 @@ class XMLRequest extends Request
      * @param null|string $number
      * @return array|null
      */
-    public function getReportByNumber($dateFrom , $dateTo, $number = null)
+    public function getReportByNumber($dateFrom, $dateTo, $number = null)
     {
         return $this->exec('reportNumber',
             [
@@ -100,7 +100,7 @@ class XMLRequest extends Request
      * @param string $action
      * @return string
      */
-    public function makeEndPoint($action)
+    protected function makeEndPoint($action)
     {
         return 'https://lcab.smsintel.ru/API/XML/' . $action . '.php';
     }

@@ -29,7 +29,7 @@ Library requires CURL extension and PHP 5.5.9 or above.
 ## Installation
 Via composer:
 ```
-composer require "seregazhuk/smsintel-api:*"
+composer require seregazhuk/smsintel-api
 ```
 
 ## Quick Start
@@ -38,7 +38,7 @@ composer require "seregazhuk/smsintel-api:*"
 // You may need to amend this path to locate composer's autoloader
 require('vendor/autoload.php'); 
 
-use seregazhuk\SmsIntel\Factories\SmsIntel;
+use seregazhuk\SmsIntel\SmsIntel;
 
 $sender = SmsIntel::create('login', 'password');
 
