@@ -48,6 +48,20 @@ class RequestsContainer
     }
 
     /**
+     * Proxies all methods to the appropriate Request object
+     *
+     * @param string $method
+     * @param array $arguments
+     * @return array
+     */
+    public function __call($method, $arguments)
+    {
+        $request = $this->resolveRequestByAction($method);
+
+        return $request->$method(...$arguments);
+    }
+
+    /**
      * Gets request object by name. If there is no such request
      * in requests array, it will try to create it, then save
      * it, and then return.
@@ -56,7 +70,7 @@ class RequestsContainer
      *
      * @throws WrongRequest
      *
-     * @return RequestInterface
+     * @return Request
      */
     public function getRequest($requestClass)
     {
