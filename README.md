@@ -27,7 +27,8 @@ Library provides common interface for making requests to both XML and JSON [smsi
 Library requires CURL extension and PHP 5.5.9 or above.
 
 ## Installation
-Via composer:
+Via [Composer](http://getcomposer.org):
+
 ```
 composer require seregazhuk/smsintel-api
 ```
