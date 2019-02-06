@@ -6,6 +6,24 @@ use ReflectionClass;
 use seregazhuk\SmsIntel\Contracts\HttpClient;
 use seregazhuk\SmsIntel\Exceptions\WrongRequest;
 
+/**
+ * @method send(string|array $phoneNumber, string $from, string $message) To send message to one or array of phone numbers
+ * @method getGroups(int $groupId = null, string $groupName = null) Get all groups
+ * @method createGroup(string $groupName) Create a new group of contacts
+ * @method editGroup(string $newName, int $groupId) Edit group name by id
+ * @method addContact(array $contactInfo) Create a new contact
+ * @method getContacts(int $groupId = null, string $phone = null) Get all contacts
+ * @method getPhoneInfo(string $phone) Get contact info by phone number
+ * @method requestSource(string $from) Request a source name
+ * @method removeContact(string $phone, int $groupId = null) Remove contact by phone number
+ *
+ * @method cancel(string $smsId) Cancel sms by id
+ * @method getBalance() Get balance
+ * @method checkCoupon(string $couponCode, bool $discountOnly) Use discount coupon
+ * @method getReportBySms(int $smsId) Get report by smsId
+ * @method getReportBySource($dateFrom, $dateTo, string $from) Get report for period by source
+ * @method getReportByNumber($dateFrom, $dateTo, string $phone = null) Get report for period by phone number
+ */
 class RequestsContainer
 {
 
