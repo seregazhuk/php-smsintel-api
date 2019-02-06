@@ -2,7 +2,7 @@
 
 namespace seregazhuk\SmsIntel;
 
-use Guzzle\Http\Client;
+use GuzzleHttp\Client;
 use seregazhuk\SmsIntel\Api\GuzzleHttpClient;
 use seregazhuk\SmsIntel\Contracts\HttpClient;
 use seregazhuk\SmsIntel\Api\Requests\RequestsContainer;

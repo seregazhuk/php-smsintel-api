@@ -2,7 +2,7 @@
 
 namespace seregazhuk\SmsIntel\Api;
 
-use Guzzle\Http\ClientInterface;
+use GuzzleHttp\ClientInterface;
 use seregazhuk\SmsIntel\Contracts\HttpClient;
 
 class GuzzleHttpClient implements HttpClient
