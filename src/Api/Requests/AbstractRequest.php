@@ -58,7 +58,7 @@ abstract class AbstractRequest
         $requestBody = $this->createRequestBody($params);
 
         $response = $this->guzzle->request('POST', $endPoint, ['body' => $requestBody]);
-        return $this->parseResponse($response);
+        return $this->parseResponse($response->getBody()->getContents());
     }
 
     /**
