@@ -2,9 +2,9 @@
 
 namespace seregazhuk\tests;
 
-use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Message\RequestInterface;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Psr7\Response;
 use Mockery;
 use seregazhuk\SmsIntel\Api\GuzzleHttpClient;
 
