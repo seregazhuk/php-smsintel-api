@@ -4,7 +4,7 @@ namespace seregazhuk\SmsIntel\Api\Requests;
 
 use seregazhuk\SmsIntel\Contracts\HttpClient;
 
-abstract class Request
+abstract class AbstractRequest
 {
     /**
      * @var array

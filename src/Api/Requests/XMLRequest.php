@@ -4,7 +4,7 @@ namespace seregazhuk\SmsIntel\Api\Requests;
 
 use seregazhuk\SmsIntel\Formatters\XMLFormatter;
 
-class XMLRequest extends Request
+class XMLRequest extends AbstractRequest
 {
     /**
      * @var array
