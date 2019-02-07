@@ -3,10 +3,8 @@
 namespace seregazhuk\SmsIntel;
 
 use GuzzleHttp\Client;
-use seregazhuk\SmsIntel\Api\GuzzleHttpClient;
-use seregazhuk\SmsIntel\Contracts\HttpClient;
 use seregazhuk\SmsIntel\Api\Requests\RequestsContainer;
-use seregazhuk\SmsIntel\Exceptions\AuthenticationFailed;
+use seregazhuk\SmsIntel\Exceptions\AuthenticationFailedException;
 
 class SmsIntel
 {
@@ -14,36 +12,28 @@ class SmsIntel
      * @param $login
      * @param $password
      * @return RequestsContainer
-     * @throws AuthenticationFailed
+     * @throws AuthenticationFailedException
      */
     public static function create($login, $password)
     {
         self::checkCredentials($login, $password);
 
         return new RequestsContainer(
-            self::createHttpAdapter(),
+            new Client(),
             $login,
             $password
         );
     }
 
     /**
-     * @return HttpClient
-     */
-    protected static function createHttpAdapter()
-    {
-        return new GuzzleHttpClient(new Client());
-    }
-
-    /**
      * @param string $login
      * @param string $password
-     * @throws AuthenticationFailed
+     * @throws AuthenticationFailedException
      */
     protected static function checkCredentials($login, $password)
     {
         if (empty($login) || empty($password)) {
-            throw new AuthenticationFailed('You must provide login and password to send messages!');
+            throw new AuthenticationFailedException('You must provide login and password to send messages!');
         }
     }
 

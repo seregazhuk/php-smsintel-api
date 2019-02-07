@@ -2,10 +2,10 @@
 
 namespace seregazhuk\tests\Requests;
 
+use GuzzleHttp\ClientInterface;
 use Mockery;
 use Mockery\Mock;
 use seregazhuk\SmsIntel\Api\Requests\AbstractRequest;
-use seregazhuk\SmsIntel\Contracts\HttpClient;
 use seregazhuk\SmsIntel\Api\Requests\XMLRequest;
 use seregazhuk\SmsIntel\Api\Requests\JSONRequest;
 
@@ -17,7 +17,7 @@ abstract class RequestTest extends \PHPUnit_Framework_TestCase
     protected $requestClass;
 
     /**
-     * @var HttpClient|Mock
+     * @var ClientInterface|Mock
      */
     protected $httpClient;
 
@@ -27,13 +27,15 @@ abstract class RequestTest extends \PHPUnit_Framework_TestCase
      * @param array $requestParams
      * @return AbstractRequest|XMLRequest|JSONRequest
      */
-    protected function getRequestMock($action, $requestParams = []) {
+    protected function getRequestMock($action, $requestParams = [])
+    {
         $this->createHttpClientMock();
         $requestParams = $this->appendCredentialsToRequestParams($requestParams);
 
         $request = $this->createRequestObject()
             ->setCredentials('test', 'test');
 
+        ksort($requestParams);
         $this->setHttpClientMockExpectations($action, $requestParams);
 
         return $request;
@@ -43,7 +45,8 @@ abstract class RequestTest extends \PHPUnit_Framework_TestCase
      * Should return Request object.
      * @return AbstractRequest
      */
-    protected function createRequestObject() {
+    protected function createRequestObject()
+    {
         $requestClass = $this->getRequestClass();
 
         return new $requestClass($this->httpClient);
@@ -85,6 +88,6 @@ abstract class RequestTest extends \PHPUnit_Framework_TestCase
 
     protected function createHttpClientMock()
     {
-        $this->httpClient = Mockery::mock(HttpClient::class);
+        $this->httpClient = Mockery::mock(ClientInterface::class);
     }
 }

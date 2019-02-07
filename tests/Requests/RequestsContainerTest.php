@@ -2,6 +2,7 @@
 
 namespace seregazhuk\tests\Requests;
 
+use GuzzleHttp\ClientInterface;
 use Mockery;
 use seregazhuk\SmsIntel\Contracts\HttpClient;
 use seregazhuk\SmsIntel\Api\Requests\XMLRequest;
@@ -21,7 +22,7 @@ class RequestsContainerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \seregazhuk\SmsIntel\Exceptions\WrongRequest
+     * @expectedException \seregazhuk\SmsIntel\Exceptions\WrongRequestException
      */
     public function it_throws_exception_when_getting_request_object_that_does_not_exist()
     {
@@ -40,7 +41,7 @@ class RequestsContainerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \seregazhuk\SmsIntel\Exceptions\WrongRequest
+     * @expectedException \seregazhuk\SmsIntel\Exceptions\WrongRequestException
      */
     public function it_throws_exception_when_resolving_request_by_wrong_action()
     {
@@ -54,7 +55,9 @@ class RequestsContainerTest extends \PHPUnit_Framework_TestCase
     protected function createContainerObject()
     {
         return new RequestsContainer(
-            Mockery::mock(HttpClient::class), 'login', 'password'
+            Mockery::mock(ClientInterface::class),
+            'login',
+            'password'
         );
     }
 

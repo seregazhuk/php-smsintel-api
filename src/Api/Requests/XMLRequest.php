@@ -107,7 +107,7 @@ class XMLRequest extends AbstractRequest
 
     /**
      * @param array $requestBody
-     * @return mixed
+     * @return string
      */
     protected function formatRequestBody(array $requestBody)
     {

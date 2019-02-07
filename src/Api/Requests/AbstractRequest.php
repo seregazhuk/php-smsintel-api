@@ -2,7 +2,8 @@
 
 namespace seregazhuk\SmsIntel\Api\Requests;
 
-use seregazhuk\SmsIntel\Contracts\HttpClient;
+
+use GuzzleHttp\ClientInterface;
 
 abstract class AbstractRequest
 {
@@ -12,9 +13,9 @@ abstract class AbstractRequest
     static public $allowedMethod = [];
 
     /**
-     * @var HttpClient
+     * @var ClientInterface
      */
-    protected $client;
+    protected $guzzle;
 
     /**
      * @var string
@@ -26,9 +27,9 @@ abstract class AbstractRequest
      */
     protected $password;
 
-    public function __construct(HttpClient $http)
+    public function __construct(ClientInterface $client)
     {
-        $this->client = $http;
+        $this->guzzle = $client;
     }
 
 
@@ -57,7 +58,7 @@ abstract class AbstractRequest
         $endPoint = $this->makeEndPoint($action);
         $requestBody = $this->createRequestBody($params);
 
-        $response = $this->client->post($endPoint, $requestBody);
+        $response = $this->guzzle->request('POST', $endPoint, ['body' => $requestBody]);
         return $this->parseResponse($response);
     }
 
@@ -75,12 +76,14 @@ abstract class AbstractRequest
             $params
         );
 
+        ksort($params);
+
         return $this->formatRequestBody($params);
     }
 
     /**
      * @param array $requestBody
-     * @return mixed
+     * @return string
      */
     abstract protected function formatRequestBody(array $requestBody);
 
