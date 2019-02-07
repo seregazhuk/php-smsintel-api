@@ -106,7 +106,7 @@ class RequestsContainer
     public function resolveRequestByAction($action)
     {
         foreach ($this->getRequestsActionsMap() as $requestClass => $actions) {
-            if(in_array($action, $actions)) {
+            if (in_array($action, $actions)) {
                 return $this->getRequest($requestClass);
             }
         }

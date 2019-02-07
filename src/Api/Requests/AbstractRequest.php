@@ -2,7 +2,6 @@
 
 namespace seregazhuk\SmsIntel\Api\Requests;
 
-
 use GuzzleHttp\ClientInterface;
 
 abstract class AbstractRequest
@@ -10,7 +9,7 @@ abstract class AbstractRequest
     /**
      * @var array
      */
-    static public $allowedMethod = [];
+    public static $allowedMethod = [];
 
     /**
      * @var ClientInterface

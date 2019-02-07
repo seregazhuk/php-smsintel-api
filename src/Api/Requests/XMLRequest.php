@@ -80,12 +80,14 @@ class XMLRequest extends AbstractRequest
      */
     public function getReportByNumber($dateFrom, $dateTo, $number = null)
     {
-        return $this->exec('reportNumber',
+        return $this->exec(
+            'reportNumber',
             [
                 'start'  => $dateFrom,
                 'stop'   => $dateTo,
                 'number' => $number,
-            ]);
+            ]
+        );
     }
 
     /**

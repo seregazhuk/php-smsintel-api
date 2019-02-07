@@ -40,10 +40,14 @@ class SmsIntel
     /**
      * @codeCoverageIgnore
      */
-    private function __construct(){}
+    private function __construct()
+    {
+    }
 
     /**
      * @codeCoverageIgnore
      */
-    private function __clone(){}
+    private function __clone()
+    {
+    }
 }

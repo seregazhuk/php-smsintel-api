@@ -156,7 +156,7 @@ class JSONRequestTest extends RequestTest
             ->shouldReceive('request')
             ->with(
                 'POST',
-                \Mockery::on(function($endpoint) use ($requestEndpoint) {
+                \Mockery::on(function ($endpoint) use ($requestEndpoint) {
                     return strpos($endpoint, $requestEndpoint) !== false;
                 }),
                 ['body' => \GuzzleHttp\json_encode($requestParams)]
