@@ -6,9 +6,26 @@ use ReflectionClass;
 use seregazhuk\SmsIntel\Contracts\HttpClient;
 use seregazhuk\SmsIntel\Exceptions\WrongRequest;
 
+/**
+ * @method send(string|array $phoneNumber, string $from, string $message) To send message to one phone number
+ * @method getGroups
+ * @method editGroup
+ * @method addContact
+ * @method getContacts
+ * @method createGroup
+ * @method getPhoneInfo
+ * @method requestSource
+ * @method removeContact
+ *
+ * @method cancel(int $smsId) Cancel sms by id
+ * @method getBalance
+ * @method checkCoupon
+ * @method getReportBySms
+ * @method getReportBySource
+ * @method getReportByNumber
+ */
 class RequestsContainer
 {
-
     /**
      * @var HttpClient
      */
@@ -25,7 +42,7 @@ class RequestsContainer
     protected $password;
 
     /**
-     * @var Request[]
+     * @var AbstractRequest[]
      */
     protected $requests = [];
 
@@ -70,7 +87,7 @@ class RequestsContainer
      *
      * @throws WrongRequest
      *
-     * @return Request
+     * @return AbstractRequest
      */
     public function getRequest($requestClass)
     {

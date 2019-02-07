@@ -9,18 +9,12 @@ interface HttpClient
      * @param array $params
      * @return array
      */
-    public function get($uri, $params = []);
+    public function get($uri, array $params = []);
 
     /**
      * @param string $uri
      * @param array $body
      * @return array
      */
-    public function post($uri, $body = []);
-
-    /**
-     * @param string $url
-     * @return $this
-     */
-    public function setBaseUrl($url);
+    public function post($uri, array $body = []);
 }

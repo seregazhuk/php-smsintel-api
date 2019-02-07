@@ -10,21 +10,6 @@ use seregazhuk\SmsIntel\Api\GuzzleHttpClient;
 
 class GuzzleHttpAdapterTest extends \PHPUnit_Framework_TestCase
 {
-
-    /** @test */
-    public function it_sets_base_url_for_http_client()
-    {
-        $baseUrl = 'http://example.com';
-
-        $http = Mockery::mock(ClientInterface::class)
-            ->shouldReceive('setBaseUrl')
-            ->with($baseUrl)
-            ->getMock();
-
-        $guzzleAdapter = new GuzzleHttpClient($http);
-        $guzzleAdapter->setBaseUrl($baseUrl);
-    }
-
     /** @test */
     public function it_executes_get_request_on_http_client()
     {

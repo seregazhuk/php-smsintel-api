@@ -4,7 +4,7 @@ namespace seregazhuk\tests\Requests;
 
 use Mockery;
 use Mockery\Mock;
-use seregazhuk\SmsIntel\Api\Requests\Request;
+use seregazhuk\SmsIntel\Api\Requests\AbstractRequest;
 use seregazhuk\SmsIntel\Contracts\HttpClient;
 use seregazhuk\SmsIntel\Api\Requests\XMLRequest;
 use seregazhuk\SmsIntel\Api\Requests\JSONRequest;
@@ -25,7 +25,7 @@ abstract class RequestTest extends \PHPUnit_Framework_TestCase
      * Creates Request object mock and sets expectations for the httpClient mock.
      * @param string $action
      * @param array $requestParams
-     * @return Request|XMLRequest|JSONRequest
+     * @return AbstractRequest|XMLRequest|JSONRequest
      */
     protected function getRequestMock($action, $requestParams = []) {
         $this->createHttpClientMock();
@@ -41,7 +41,7 @@ abstract class RequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Should return Request object.
-     * @return Request
+     * @return AbstractRequest
      */
     protected function createRequestObject() {
         $requestClass = $this->getRequestClass();

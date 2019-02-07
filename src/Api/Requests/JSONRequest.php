@@ -2,7 +2,7 @@
 
 namespace seregazhuk\SmsIntel\Api\Requests;
 
-class JSONRequest extends Request
+class JSONRequest extends AbstractRequest
 {
     /**
      * @var array
@@ -138,7 +138,7 @@ class JSONRequest extends Request
      */
     protected function makeEndPoint($action)
     {
-        return 'https://lcab.smsintel.ru/lcabApi/' . $action . '.php';
+        return "https://lcab.smsintel.ru/lcabApi/{$action}.php";
     }
 
     /**
