@@ -2,3 +2,4 @@
 build
 index.php
 /composer.lock
+/vendor/

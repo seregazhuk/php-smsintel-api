@@ -2,9 +2,9 @@
 
 namespace seregazhuk\SmsIntel\Api\Requests;
 
+use GuzzleHttp\ClientInterface;
 use ReflectionClass;
-use seregazhuk\SmsIntel\Contracts\HttpClient;
-use seregazhuk\SmsIntel\Exceptions\WrongRequest;
+use seregazhuk\SmsIntel\Exceptions\WrongRequestException;
 
 /**
  * @method send(string|array $phoneNumber, string $from, string $message) To send message to one phone number
@@ -27,9 +27,9 @@ use seregazhuk\SmsIntel\Exceptions\WrongRequest;
 class RequestsContainer
 {
     /**
-     * @var HttpClient
+     * @var ClientInterface
      */
-    protected $http;
+    protected $guzzle;
 
     /**
      * @var string
@@ -46,9 +46,9 @@ class RequestsContainer
      */
     protected $requests = [];
 
-    public function __construct(HttpClient $http, $login, $password)
+    public function __construct(ClientInterface $http, $login, $password)
     {
-        $this->http = $http;
+        $this->guzzle = $http;
         $this->login = $login;
         $this->password = $password;
     }
@@ -85,7 +85,7 @@ class RequestsContainer
      *
      * @param string $requestClass
      *
-     * @throws WrongRequest
+     * @throws WrongRequestException
      *
      * @return AbstractRequest
      */
@@ -101,7 +101,7 @@ class RequestsContainer
     /**
      * @param $action
      * @return string
-     * @throws WrongRequest
+     * @throws WrongRequestException
      */
     public function resolveRequestByAction($action)
     {
@@ -111,7 +111,7 @@ class RequestsContainer
             }
         }
 
-        throw new WrongRequest("Action $action doesn't exist!");
+        throw new WrongRequestException("Action $action doesn't exist!");
     }
 
     /**
@@ -120,12 +120,12 @@ class RequestsContainer
      *
      * @param string $requestClass
      *
-     * @throws WrongRequest
+     * @throws WrongRequestException
      */
     protected function addRequest($requestClass)
     {
         if (!class_exists($requestClass)) {
-            throw new WrongRequest("Request $requestClass not found.");
+            throw new WrongRequestException("Request $requestClass not found.");
         }
         $this->requests[$requestClass] = $this->buildRequest($requestClass);
     }
@@ -140,7 +140,7 @@ class RequestsContainer
     protected function buildRequest($className)
     {
         return (new ReflectionClass($className))
-            ->newInstanceArgs([$this->http])
+            ->newInstanceArgs([$this->guzzle])
             ->setCredentials($this->login, $this->password);
     }
 }

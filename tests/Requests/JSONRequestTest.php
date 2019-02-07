@@ -153,12 +153,13 @@ class JSONRequestTest extends RequestTest
     {
         $this
             ->httpClient
-            ->shouldReceive('post')
+            ->shouldReceive('request')
             ->with(
+                'POST',
                 \Mockery::on(function($endpoint) use ($requestEndpoint) {
                     return strpos($endpoint, $requestEndpoint) !== false;
                 }),
-                $requestParams
+                ['body' => \GuzzleHttp\json_encode($requestParams)]
             )->andReturn('');
     }
 }

@@ -15,7 +15,7 @@ class SmsIntelTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \seregazhuk\SmsIntel\Exceptions\AuthenticationFailed
+     * @expectedException \seregazhuk\SmsIntel\Exceptions\AuthenticationFailedException
      */
     public function it_throws_exception_with_empty_credentials()
     {

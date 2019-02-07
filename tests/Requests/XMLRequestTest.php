@@ -95,12 +95,13 @@ class XMLRequestTest extends RequestTest
     protected function setHttpClientMockExpectations($requestEndpoint, $requestParams)
     {
         $this->httpClient
-            ->shouldReceive('post')
+            ->shouldReceive('request')
             ->with(
+                'POST',
                 Mockery::on(function($endpoint) use ($requestEndpoint) {
                     return strpos($endpoint, $requestEndpoint) !== false;
                 }),
-                (new XMLFormatter($requestParams))->toXml()
+                ['body' => (new XMLFormatter($requestParams))->toXml()]
             )
             ->andReturn('<?xml version=\'1.0\' encoding=\'UTF-8\'?><data></data>');
 
