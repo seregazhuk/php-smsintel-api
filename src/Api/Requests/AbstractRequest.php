@@ -3,6 +3,7 @@
 namespace seregazhuk\SmsIntel\Api\Requests;
 
 use GuzzleHttp\ClientInterface;
+use seregazhuk\SmsIntel\Exceptions\BaseSmsIntelException;
 
 abstract class AbstractRequest
 {
@@ -63,7 +64,14 @@ abstract class AbstractRequest
 
         $response = $this->guzzle->request($method, $endPoint, $options);
 
-        return $this->parseResponse($response->getBody()->getContents());
+        $respArr = $this->parseResponse($response->getBody()->getContents());
+
+        if (array_key_exists('error_descr', $respArr)) {
+            $respArr = array_merge(['code' => 0, 'descr' => '', 'error_descr' => []], $respArr); // screw the notices!
+            throw new BaseSmsIntelException($respArr['descr'], $respArr['code'], $respArr['error_descr']);
+        }
+
+        return $respArr;
     }
 
     /**
