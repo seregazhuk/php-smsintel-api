@@ -157,7 +157,7 @@ class JSONRequestTest extends RequestTest
     {
         /** @var Mock $mockContent */
         $mockContent = Mockery::mock(StreamInterface::class);
-        $mockContent->shouldReceive('getContents')->andReturn('');
+        $mockContent->shouldReceive('getContents')->andReturn('{}');
 
         /** @var Mock $mockResponse */
         $mockResponse = Mockery::mock(ResponseInterface::class);
