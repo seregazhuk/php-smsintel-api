@@ -66,7 +66,7 @@ abstract class AbstractRequest
 
         $respArr = $this->parseResponse($response->getBody()->getContents());
 
-        if (array_key_exists('error_descr', $respArr)) {
+        if (is_array($respArr) && array_key_exists('error_descr', $respArr)) {
             $respArr = array_merge(['code' => 0, 'descr' => '', 'error_descr' => []], $respArr); // screw the notices!
             throw new BaseSmsIntelException($respArr['descr'], $respArr['code'], $respArr['error_descr']);
         }
