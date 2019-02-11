@@ -3,6 +3,9 @@
 namespace seregazhuk\tests\Requests;
 
 use Mockery;
+use Mockery\Mock;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 use seregazhuk\SmsIntel\Formatters\XMLFormatter;
 use seregazhuk\SmsIntel\Api\Requests\XMLRequest;
 
@@ -34,12 +37,14 @@ class XMLRequestTest extends RequestTest
         $dateTo =  '2016-01-01';
 
         $this
-            ->getRequestMock('reportNumber',
+            ->getRequestMock(
+                'reportNumber',
                 [
                     'start' => $dateFrom,
                     'stop' => $dateTo,
                     'number' => $phone
-                ])
+                ]
+            )
             ->getReportByNumber($dateFrom, $dateTo, $phone);
     }
 
@@ -50,7 +55,6 @@ class XMLRequestTest extends RequestTest
         $this
             ->getRequestMock('report', ['smsid' => $smsId])
             ->getReportBySms($smsId);
-
     }
 
     /** @test */
@@ -68,7 +72,6 @@ class XMLRequestTest extends RequestTest
                     'phone'      => $phone,
                 ]
             )->checkCoupon($code, $markAsUsed, $phone);
-
     }
 
     /** @test */
@@ -79,12 +82,14 @@ class XMLRequestTest extends RequestTest
         $dateTo =  '2016-01-01';
 
         $this
-            ->getRequestMock('report',
+            ->getRequestMock(
+                'report',
                 [
                     'start' => $dateFrom,
                     'stop' => $dateTo,
                     'source' => $source
-                ])
+                ]
+            )
             ->getReportBySource($dateFrom, $dateTo, $source);
     }
 
@@ -94,16 +99,23 @@ class XMLRequestTest extends RequestTest
      */
     protected function setHttpClientMockExpectations($requestEndpoint, $requestParams)
     {
+        /** @var Mock $mockContent */
+        $mockContent = Mockery::mock(StreamInterface::class);
+        $mockContent->shouldReceive('getContents')->andReturn('<?xml version=\'1.0\' encoding=\'UTF-8\'?><data></data>');
+
+        /** @var Mock $mockResponse */
+        $mockResponse = Mockery::mock(ResponseInterface::class);
+        $mockResponse->shouldReceive('getBody')->andReturn($mockContent);
+
         $this->httpClient
             ->shouldReceive('request')
             ->with(
                 'POST',
-                Mockery::on(function($endpoint) use ($requestEndpoint) {
+                Mockery::on(function ($endpoint) use ($requestEndpoint) {
                     return strpos($endpoint, $requestEndpoint) !== false;
                 }),
                 ['body' => (new XMLFormatter($requestParams))->toXml()]
             )
-            ->andReturn('<?xml version=\'1.0\' encoding=\'UTF-8\'?><data></data>');
-
+            ->andReturn($mockResponse);
     }
 }

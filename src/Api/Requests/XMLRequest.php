@@ -24,7 +24,7 @@ class XMLRequest extends AbstractRequest
      */
     public function cancel($smsId)
     {
-        return $this->exec('cancel', [ 'smsid' => $smsId ]);
+        return $this->exec('cancel', ['smsid' => $smsId]);
     }
 
     /**
@@ -69,7 +69,7 @@ class XMLRequest extends AbstractRequest
      */
     public function getReportBySms($smsId)
     {
-        return $this->exec('report', [ 'smsid' => $smsId ]);
+        return $this->exec('report', ['smsid' => $smsId]);
     }
 
     /**
@@ -96,18 +96,24 @@ class XMLRequest extends AbstractRequest
         return $this->exec('balance');
     }
 
+    public function exec($action, $params = [], $method = 'POST')
+    {
+        return parent::exec($action, $params, $method);
+    }
+
+
     /**
      * @param string $action
      * @return string
      */
     protected function makeEndPoint($action)
     {
-        return 'https://lcab.smsintel.ru/API/XML/' . $action . '.php';
+        return "https://lcab.smsintel.ru/API/XML/{$action}.php";
     }
 
     /**
      * @param array $requestBody
-     * @return string
+     * @return string|array
      */
     protected function formatRequestBody(array $requestBody)
     {

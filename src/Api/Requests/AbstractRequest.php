@@ -51,20 +51,25 @@ abstract class AbstractRequest
      *
      * @param string $action
      * @param array $params
+     * @param string $method
      * @return array|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function exec($action, $params = [])
+    public function exec($action, $params = [], $method = 'GET')
     {
         $endPoint = $this->makeEndPoint($action);
         $requestBody = $this->createRequestBody($params);
 
-        $response = $this->guzzle->request('POST', $endPoint, ['body' => $requestBody]);
+        $options = $this->makeOptions($method, $requestBody);
+
+        $response = $this->guzzle->request($method, $endPoint, $options);
+
         return $this->parseResponse($response->getBody()->getContents());
     }
 
     /**
      * @param array $params
-     * @return string
+     * @return string|array
      */
     protected function createRequestBody(array $params)
     {
@@ -82,8 +87,25 @@ abstract class AbstractRequest
     }
 
     /**
+     * @param string $method
+     * @param string|array $requestBody
+     * @return array
+     */
+    private function makeOptions($method, $requestBody)
+    {
+        switch (strtoupper($method)) {
+            case 'GET':
+                return ['query' => $requestBody];
+            case 'POST':
+                $body = is_array($requestBody) ? \GuzzleHttp\json_encode($requestBody) : $requestBody;
+                return ['body' => $body];
+
+        }
+    }
+
+    /**
      * @param array $requestBody
-     * @return string
+     * @return string|array
      */
     abstract protected function formatRequestBody(array $requestBody);
 

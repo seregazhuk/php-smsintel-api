@@ -143,11 +143,11 @@ class JSONRequest extends AbstractRequest
 
     /**
      * @param array $requestBody
-     * @return string
+     * @return string|array
      */
     protected function formatRequestBody(array $requestBody)
     {
-        return \GuzzleHttp\json_encode($requestBody);
+        return $requestBody;
     }
 
     /**
