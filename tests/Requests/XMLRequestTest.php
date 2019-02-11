@@ -3,6 +3,9 @@
 namespace seregazhuk\tests\Requests;
 
 use Mockery;
+use Mockery\Mock;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 use seregazhuk\SmsIntel\Formatters\XMLFormatter;
 use seregazhuk\SmsIntel\Api\Requests\XMLRequest;
 
@@ -96,6 +99,14 @@ class XMLRequestTest extends RequestTest
      */
     protected function setHttpClientMockExpectations($requestEndpoint, $requestParams)
     {
+        /** @var Mock $mockContent */
+        $mockContent = Mockery::mock(StreamInterface::class);
+        $mockContent->shouldReceive('getContents')->andReturn('<?xml version=\'1.0\' encoding=\'UTF-8\'?><data></data>');
+
+        /** @var Mock $mockResponse */
+        $mockResponse = Mockery::mock(ResponseInterface::class);
+        $mockResponse->shouldReceive('getBody')->andReturn($mockContent);
+
         $this->httpClient
             ->shouldReceive('request')
             ->with(
@@ -105,6 +116,6 @@ class XMLRequestTest extends RequestTest
                 }),
                 ['body' => (new XMLFormatter($requestParams))->toXml()]
             )
-            ->andReturn('<?xml version=\'1.0\' encoding=\'UTF-8\'?><data></data>');
+            ->andReturn($mockResponse);
     }
 }

@@ -2,6 +2,10 @@
 
 namespace seregazhuk\tests\Requests;
 
+use Guzzle\Stream\StreamInterface;
+use Mockery;
+use Mockery\Mock;
+use Psr\Http\Message\ResponseInterface;
 use seregazhuk\SmsIntel\Api\Requests\JSONRequest;
 
 class JSONRequestTest extends RequestTest
@@ -151,15 +155,23 @@ class JSONRequestTest extends RequestTest
      */
     protected function setHttpClientMockExpectations($requestEndpoint, $requestParams)
     {
+        /** @var Mock $mockContent */
+        $mockContent = Mockery::mock(StreamInterface::class);
+        $mockContent->shouldReceive('getContents')->andReturn('');
+
+        /** @var Mock $mockResponse */
+        $mockResponse = Mockery::mock(ResponseInterface::class);
+        $mockResponse->shouldReceive('getBody')->andReturn($mockContent);
+
         $this
             ->httpClient
             ->shouldReceive('request')
             ->with(
-                'POST',
+                'GET',
                 \Mockery::on(function ($endpoint) use ($requestEndpoint) {
                     return strpos($endpoint, $requestEndpoint) !== false;
                 }),
-                ['body' => \GuzzleHttp\json_encode($requestParams)]
-            )->andReturn('');
+                ['query' => $requestParams]
+            )->andReturn($mockResponse);
     }
 }
