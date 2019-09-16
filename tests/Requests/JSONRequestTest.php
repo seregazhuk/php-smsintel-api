@@ -15,7 +15,7 @@ class JSONRequestTest extends RequestTest
     /** @test */
     public function it_sends_messages()
     {
-        $to = 'phoneTo';
+        $to = '790012345678';
         $from = 'phoneFrom';
         $message = 'test message';
 
@@ -32,7 +32,7 @@ class JSONRequestTest extends RequestTest
     /** @test */
     public function it_accepts_additional_params_when_sending_messages()
     {
-        $to = 'phoneTo';
+        $to = '790012345678';
         $from = 'phoneFrom';
         $message = 'test message';
         $params = ['param1' => 'value1'];

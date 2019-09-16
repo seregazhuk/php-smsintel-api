@@ -5,11 +5,12 @@ namespace seregazhuk\tests\Requests;
 use GuzzleHttp\ClientInterface;
 use Mockery;
 use Mockery\Mock;
+use PHPUnit\Framework\TestCase;
 use seregazhuk\SmsIntel\Api\Requests\AbstractRequest;
 use seregazhuk\SmsIntel\Api\Requests\XMLRequest;
 use seregazhuk\SmsIntel\Api\Requests\JSONRequest;
 
-abstract class RequestTest extends \PHPUnit_Framework_TestCase
+abstract class RequestTest extends TestCase
 {
     /**
      * @var string
