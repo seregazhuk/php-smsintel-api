@@ -30,7 +30,7 @@ class JSONRequest extends AbstractRequest
     {
         $to = is_array($to) ? $to : [$to];
         $to = array_map(function ($phone) {
-            return preg_replace('/[^\d]]/', '', $phone);
+            return preg_replace('/[^\d]/', '', $phone);
         }, $to);
 
         $requestParams = array_merge(
