@@ -26,14 +26,17 @@ class JSONRequest extends AbstractRequest
      * @param array $params
      * @return array|null
      */
-    public function send($to, $from, $message, $params = [ ])
+    public function send($to, $from, $message, $params = [])
     {
-        $to = is_array($to) ? $to : [ $to ];
+        $to = is_array($to) ? $to : [$to];
+        $to = array_map(function ($phone) {
+            return preg_replace('/[^\d]]/', '', $phone);
+        }, $to);
 
         $requestParams = array_merge(
             [
                 'to'     => $to,
-                'txt'   => $message,
+                'txt'    => $message,
                 'source' => $from,
             ],
             $params
@@ -63,7 +66,7 @@ class JSONRequest extends AbstractRequest
             ['idGroup' => $groupId, 'phone' => $phone]
         );
     }
-    
+
     /**
      * @param string $phone
      * @return array|null
