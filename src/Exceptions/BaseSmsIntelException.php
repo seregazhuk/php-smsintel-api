@@ -7,11 +7,19 @@ use Throwable;
 class BaseSmsIntelException extends \Exception
 {
     /** @var array */
-    protected $errorDescr;
+    protected $errorData;
 
-    public function __construct($message = "", $code = 0, array $errorDescr = [], Throwable $previous = null)
+    public function __construct($message = "", $code = 0, array $errorData = [], Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
-        $this->errorDescr = $errorDescr;
+        $this->errorData = $errorData;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getErrorData()
+    {
+        return $this->errorData;
     }
 }
