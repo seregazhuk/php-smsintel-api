@@ -4,20 +4,23 @@ namespace seregazhuk\tests\Requests;
 
 use Mockery;
 use Mockery\Mock;
+use PHPUnit\Framework\TestCase;
+use seregazhuk\SmsIntel\Api\GuzzleHttpClient;
 use seregazhuk\SmsIntel\Api\Requests\Request;
-use seregazhuk\SmsIntel\Contracts\HttpClient;
 use seregazhuk\SmsIntel\Api\Requests\XMLRequest;
 use seregazhuk\SmsIntel\Api\Requests\JSONRequest;
 
-abstract class RequestTest extends \PHPUnit_Framework_TestCase
+abstract class RequestTest extends TestCase
 {
+    use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+
     /**
      * @var string
      */
     protected $requestClass;
 
     /**
-     * @var HttpClient|Mock
+     * @var GuzzleHttpClient|Mock
      */
     protected $httpClient;
 
@@ -63,11 +66,6 @@ abstract class RequestTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    protected function tearDown()
-    {
-        Mockery::close();
-    }
-
     /**
      * @param string $requestEndpoint
      * @param array $requestParams
@@ -85,6 +83,6 @@ abstract class RequestTest extends \PHPUnit_Framework_TestCase
 
     protected function createHttpClientMock()
     {
-        $this->httpClient = Mockery::mock(HttpClient::class);
+        $this->httpClient = Mockery::mock(GuzzleHttpClient::class);
     }
 }

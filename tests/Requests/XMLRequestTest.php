@@ -100,7 +100,7 @@ class XMLRequestTest extends RequestTest
                 Mockery::on(function($endpoint) use ($requestEndpoint) {
                     return strpos($endpoint, $requestEndpoint) !== false;
                 }),
-                (new XMLFormatter($requestParams))->toXml()
+                ['body' => (new XMLFormatter($requestParams))->toXml()]
             )
             ->andReturn('<?xml version=\'1.0\' encoding=\'UTF-8\'?><data></data>');
 

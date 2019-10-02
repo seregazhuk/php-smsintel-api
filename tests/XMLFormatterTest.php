@@ -2,9 +2,10 @@
 
 namespace seregazhuk\tests;
 
+use PHPUnit\Framework\TestCase;
 use seregazhuk\SmsIntel\Formatters\XMLFormatter;
 
-class XMLFormatterTest extends \PHPUnit_Framework_TestCase
+class XMLFormatterTest extends TestCase
 {
     /** @test */
     public function it_formats_request_params_to_xml()

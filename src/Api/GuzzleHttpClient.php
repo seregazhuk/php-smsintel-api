@@ -40,6 +40,6 @@ class GuzzleHttpClient
      */
     public function post($uri, $body = [])
     {
-        return $this->client->post($uri,  $body)->getBody();
+        return $this->client->post($uri, $body)->getBody();
     }
 }
