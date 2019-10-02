@@ -2,28 +2,18 @@
 
 namespace seregazhuk\tests;
 
-use Guzzle\Http\ClientInterface;
+use Guzzle\Stream\StreamInterface;
+use GuzzleHttp\ClientInterface;
 use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Http\Message\Response;
 use Mockery;
+use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
 use seregazhuk\SmsIntel\Api\GuzzleHttpClient;
 
-class GuzzleHttpAdapterTest extends \PHPUnit_Framework_TestCase
+class GuzzleHttpAdapterTest extends TestCase
 {
-
-    /** @test */
-    public function it_sets_base_url_for_http_client()
-    {
-        $baseUrl = 'http://example.com';
-
-        $http = Mockery::mock(ClientInterface::class)
-            ->shouldReceive('setBaseUrl')
-            ->with($baseUrl)
-            ->getMock();
-
-        $guzzleAdapter = new GuzzleHttpClient($http);
-        $guzzleAdapter->setBaseUrl($baseUrl);
-    }
+    use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
     /** @test */
     public function it_executes_get_request_on_http_client()
@@ -38,7 +28,6 @@ class GuzzleHttpAdapterTest extends \PHPUnit_Framework_TestCase
             ->andReturn($this->createRequestMock())
             ->getMock();
 
-
         $guzzleAdapter = new GuzzleHttpClient($http);
         $guzzleAdapter->get($url, $queryParams);
     }
@@ -51,7 +40,7 @@ class GuzzleHttpAdapterTest extends \PHPUnit_Framework_TestCase
 
         $http = Mockery::mock(ClientInterface::class)
             ->shouldReceive('post')
-            ->with($url, [], $params)
+            ->with($url, $params)
             ->andReturn($this->createRequestMock())
             ->getMock();
 
@@ -64,10 +53,14 @@ class GuzzleHttpAdapterTest extends \PHPUnit_Framework_TestCase
      */
     protected function createRequestMock()
     {
-        $requestMock = Mockery::mock(RequestInterface::class)
-            ->shouldReceive('send')
-            ->andReturn(new Response(200))
-            ->getMock();
-        return $requestMock;
+        /** @var Mock $mockContent */
+        $mockContent = Mockery::mock(StreamInterface::class);
+        $mockContent->shouldReceive('getContents')->andReturn('{}');
+
+        /** @var Mock $mockResponse */
+        $mockResponse = Mockery::mock(ResponseInterface::class);
+        $mockResponse->shouldReceive('getBody')->andReturn($mockContent);
+
+        return $mockResponse;
     }
 }

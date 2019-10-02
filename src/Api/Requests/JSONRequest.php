@@ -147,7 +147,7 @@ class JSONRequest extends Request
      */
     protected function formatRequestBody(array $requestBody)
     {
-        return $requestBody;
+        return ['json' => $requestBody];
     }
 
     /**

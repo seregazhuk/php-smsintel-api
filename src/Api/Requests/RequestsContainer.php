@@ -2,15 +2,33 @@
 
 namespace seregazhuk\SmsIntel\Api\Requests;
 
+use GuzzleHttp\Client;
 use ReflectionClass;
-use seregazhuk\SmsIntel\Contracts\HttpClient;
+use seregazhuk\SmsIntel\Api\GuzzleHttpClient;
 use seregazhuk\SmsIntel\Exceptions\WrongRequest;
 
+/**
+ * @method send(string|array $phoneNumber, string $from, string $message) To send message to one phone number
+ * @method getGroups
+ * @method editGroup
+ * @method addContact
+ * @method getContacts
+ * @method createGroup
+ * @method getPhoneInfo
+ * @method requestSource
+ * @method removeContact
+ *
+ * @method cancel(int $smsId) Cancel sms by id
+ * @method getBalance
+ * @method checkCoupon
+ * @method getReportBySms
+ * @method getReportBySource
+ * @method getReportByNumber
+ */
 class RequestsContainer
 {
-
     /**
-     * @var HttpClient
+     * @var Client
      */
     protected $http;
 
@@ -29,7 +47,7 @@ class RequestsContainer
      */
     protected $requests = [];
 
-    public function __construct(HttpClient $http, $login, $password)
+    public function __construct(GuzzleHttpClient $http, $login, $password)
     {
         $this->http = $http;
         $this->login = $login;

@@ -3,12 +3,13 @@
 namespace seregazhuk\tests\Requests;
 
 use Mockery;
-use seregazhuk\SmsIntel\Contracts\HttpClient;
+use PHPUnit\Framework\TestCase;
+use seregazhuk\SmsIntel\Api\GuzzleHttpClient;
 use seregazhuk\SmsIntel\Api\Requests\XMLRequest;
 use seregazhuk\SmsIntel\Api\Requests\JSONRequest;
 use seregazhuk\SmsIntel\Api\Requests\RequestsContainer;
 
-class RequestsContainerTest extends \PHPUnit_Framework_TestCase
+class RequestsContainerTest extends TestCase
 {
     /** @test */
     public function it_returns_an_instance_of_request_object()
@@ -54,7 +55,7 @@ class RequestsContainerTest extends \PHPUnit_Framework_TestCase
     protected function createContainerObject()
     {
         return new RequestsContainer(
-            Mockery::mock(HttpClient::class), 'login', 'password'
+            Mockery::mock(GuzzleHttpClient::class), 'login', 'password'
         );
     }
 

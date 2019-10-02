@@ -111,7 +111,7 @@ class XMLRequest extends Request
      */
     protected function formatRequestBody(array $requestBody)
     {
-        return (new XMLFormatter($requestBody))->toXml();
+        return ['body' => (new XMLFormatter($requestBody))->toXml()];
     }
 
     /**

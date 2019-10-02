@@ -2,10 +2,11 @@
 
 namespace seregazhuk\tests;
 
+use PHPUnit\Framework\TestCase;
 use seregazhuk\SmsIntel\SmsIntel;
 use seregazhuk\SmsIntel\Api\Requests\RequestsContainer;
 
-class SmsIntelTest extends \PHPUnit_Framework_TestCase
+class SmsIntelTest extends TestCase
 {
     /** @test */
     public function it_creates_an_instance_of_requests_container()
