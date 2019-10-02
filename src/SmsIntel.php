@@ -2,9 +2,8 @@
 
 namespace seregazhuk\SmsIntel;
 
-use Guzzle\Http\Client;
+use GuzzleHttp\Client;
 use seregazhuk\SmsIntel\Api\GuzzleHttpClient;
-use seregazhuk\SmsIntel\Contracts\HttpClient;
 use seregazhuk\SmsIntel\Api\Requests\RequestsContainer;
 use seregazhuk\SmsIntel\Exceptions\AuthenticationFailed;
 
@@ -21,18 +20,10 @@ class SmsIntel
         self::checkCredentials($login, $password);
 
         return new RequestsContainer(
-            self::createHttpAdapter(),
+			new GuzzleHttpClient(new Client()),
             $login,
             $password
         );
-    }
-
-    /**
-     * @return HttpClient
-     */
-    protected static function createHttpAdapter()
-    {
-        return new GuzzleHttpClient(new Client());
     }
 
     /**

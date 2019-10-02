@@ -2,17 +2,14 @@
 
 namespace seregazhuk\SmsIntel\Api\Requests;
 
-use seregazhuk\SmsIntel\Contracts\HttpClient;
+use GuzzleHttp\Client;
+use seregazhuk\SmsIntel\Api\GuzzleHttpClient;
 
 abstract class Request
 {
-    /**
-     * @var array
-     */
-    static public $allowedMethod = [];
 
     /**
-     * @var HttpClient
+     * @var Client
      */
     protected $client;
 
@@ -26,7 +23,7 @@ abstract class Request
      */
     protected $password;
 
-    public function __construct(HttpClient $http)
+    public function __construct(GuzzleHttpClient $http)
     {
         $this->client = $http;
     }

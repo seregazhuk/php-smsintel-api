@@ -2,10 +2,9 @@
 
 namespace seregazhuk\SmsIntel\Api;
 
-use Guzzle\Http\ClientInterface;
-use seregazhuk\SmsIntel\Contracts\HttpClient;
+use GuzzleHttp\ClientInterface;
 
-class GuzzleHttpClient implements HttpClient
+class GuzzleHttpClient
 {
     /**
      * @var ClientInterface
@@ -31,11 +30,7 @@ class GuzzleHttpClient implements HttpClient
             $uri .= '?' . http_build_query($params);
         }
 
-        return $this
-            ->client
-            ->get($uri)
-            ->send()
-            ->getBody(true);
+        return (string)$this->client->get($uri)->getBody();
     }
 
     /**
@@ -45,21 +40,6 @@ class GuzzleHttpClient implements HttpClient
      */
     public function post($uri, $body = [])
     {
-        return $this
-            ->client
-            ->post($uri, [], $body)
-            ->send()
-            ->getBody(true);
-    }
-
-    /**
-     * @param string $url
-     * @return $this
-     */
-    public function setBaseUrl($url)
-    {
-        $this->client->setBaseUrl($url);
-
-        return $this;
+        return $this->client->post($uri,  $body)->getBody();
     }
 }
